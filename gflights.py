@@ -79,6 +79,13 @@ def _minutes(text):
     return (int(h.group(1)) * 60 if h else 0) + (int(m.group(1)) if m else 0)
 
 
+def _label(mins):
+    """478 -> '7h 58m'; 55 -> '55m'. Never '0h 55m'."""
+    if not mins:
+        return None
+    return f"{mins // 60}h {mins % 60:02d}m" if mins >= 60 else f"{mins}m"
+
+
 def _stamp(time_text, date_text, year):
     """('5:00 AM', 'Monday, June 14', 2027) -> '2027-06-14T05:00'."""
     if not time_text or not date_text:
@@ -139,12 +146,16 @@ def parse_label(label, year):
     arr = _stamp(g["arr_time"], g["arr_date"], year)
     stops = 0 if sm.group(1) else int(sm.group(2))
 
-    layovers = [
-        {"at": _code(m.group("at")),
-         "minutes": _minutes(m.group("dur")),
-         "label": m.group("dur").strip()}
-        for m in LAYOVER_RE.finditer(label)
-    ]
+    layovers = []
+    for m in LAYOVER_RE.finditer(label):
+        mins = _minutes(m.group("dur"))
+        layovers.append({
+            "at": _code(m.group("at")),
+            "minutes": mins,
+            # Google writes "12 hr 35 min"; everything else here says
+            # "12h 35m". One row should not use both.
+            "label": _label(mins) or m.group("dur").strip(),
+        })
 
     dm = DURATION_RE.search(label)
     total = _minutes(dm.group(1)) if dm else None
@@ -170,7 +181,7 @@ def parse_label(label, year):
         "depart_at": dep,
         "arrive_at": arr,
         "total_minutes": total,
-        "total_label": f"{total // 60}h {total % 60:02d}m" if total else None,
+        "total_label": _label(total),
         "segments": segments,
         "layovers": layovers,
         "carbon": int(cm.group(1).replace(",", "")) * 1000 if cm else None,

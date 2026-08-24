@@ -64,7 +64,7 @@ body{
   position:relative;
   background:var(--card);
   border-radius:14px;
-  padding:26px 22px 22px;
+  padding:22px 22px 20px;
   --notch:13px;
   -webkit-mask:
     radial-gradient(var(--notch) at left 50%,#0000 98%,#000) left/51% 100% no-repeat,
@@ -73,11 +73,9 @@ body{
     radial-gradient(var(--notch) at left 50%,#0000 98%,#000) left/51% 100% no-repeat,
     radial-gradient(var(--notch) at right 50%,#0000 98%,#000) right/51% 100% no-repeat;
 }
-.coupon::after{
-  /* the perforation the notches imply */
-  content:"";position:absolute;left:22px;right:22px;top:50%;
-  border-top:1px dashed var(--line);opacity:.55;
-}
+/* The perforation that used to run across the middle went with the position
+   bar -- on a card holding just the verdict and the fare it cut through the
+   number itself. The edge notches still read as a stub. */
 
 .verdict{
   font-family:var(--mono);
@@ -190,58 +188,84 @@ body{
   *{transition:none !important;animation:none !important}
 }
 
-/* ---- itinerary timeline --------------------------------------------------
-   A journey is a sequence, so it is drawn as one: depart, what happens in
-   between, arrive. Dots on a rule down the left, times big enough to read at
-   arm's length, everything else subordinate. */
-.itin{border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
-.itin[hidden]{display:none}
-.itin-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.badge{
-  font-family:var(--mono);font-size:9px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--ground);background:var(--dim);
-  padding:2px 6px;border-radius:3px;flex:none;
+/* ---- the board ---------------------------------------------------------
+   A departures board, not a detail panel. One row per flight, cheapest at
+   the top, price and clock on the same line because those are the two things
+   you compare. Rows that break your rules stay on screen but recede -- seeing
+   that every cheap option lands next day IS the information. */
+.board{margin-top:26px}
+.board[hidden]{display:none}
+.board-head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  gap:10px;padding-bottom:4px;
 }
-.badge[hidden]{display:none}
-.itin-sum{
-  font-family:var(--mono);font-size:11.5px;color:var(--dim);
-  margin-top:6px;letter-spacing:.03em;
+.board-count{
+  font-family:var(--mono);font-size:10px;color:var(--dim);
+  letter-spacing:.06em;white-space:nowrap;
 }
 
-.leg{list-style:none;margin-top:12px;padding-left:22px;position:relative}
-.leg::before{
-  content:"";position:absolute;left:4px;top:12px;bottom:12px;
-  width:1px;background:var(--line);
+.flights{list-style:none;margin-top:4px}
+.flight{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:1px 12px;
+  padding:11px 0 10px;
+  border-bottom:1px solid var(--line);
+  position:relative;
 }
-.leg .stop{
-  display:grid;grid-template-columns:auto auto 1fr;gap:10px;
-  align-items:baseline;font-family:var(--mono);padding:3px 0;position:relative;
+.flight:last-child{border-bottom:0}
+
+.flight .price{
+  font-family:var(--mono);font-size:16px;font-weight:600;
+  font-variant-numeric:tabular-nums;letter-spacing:-.01em;
 }
-.leg .stop::before{
-  content:"";position:absolute;left:-22px;top:6px;
-  width:9px;height:9px;border-radius:50%;
-  background:var(--ground);border:1.5px solid var(--ink);
+.flight .when{
+  font-family:var(--mono);font-size:13px;text-align:right;
+  font-variant-numeric:tabular-nums;letter-spacing:.02em;white-space:nowrap;
 }
-.stop .t{font-size:16px;font-weight:600;letter-spacing:.01em}
-.stop .a{font-size:12px;color:var(--dim);letter-spacing:.1em}
-.stop .d{
-  font-size:10px;color:var(--dim);text-align:right;
-  white-space:nowrap;letter-spacing:.04em;
+.flight .when .plus{
+  font-style:normal;font-size:9.5px;color:var(--signal);
+  vertical-align:super;margin-left:2px;letter-spacing:0;
 }
-.leg.next-day .stop:last-child .d{color:var(--signal)}
-.leg .hop{
-  font-family:var(--mono);font-size:10.5px;color:var(--dim);
-  padding:3px 0 5px;letter-spacing:.05em;
+.flight .detail{
+  grid-column:1/-1;font-size:11px;color:var(--dim);
+  margin-top:3px;overflow-wrap:anywhere;
 }
-.itin-note{font-size:11.5px;color:var(--dim);margin-top:12px;line-height:1.55}
-.itin-note.warn{color:var(--signal)}
-.itin-note:empty{display:none}
+.flight .why{
+  grid-column:1/-1;font-family:var(--mono);font-size:9.5px;
+  color:var(--dim);letter-spacing:.09em;text-transform:uppercase;margin-top:3px;
+}
+
+/* Breaks your rules: still legible, clearly not a candidate. */
+.flight.off .price,
+.flight.off .when{color:var(--dim);font-weight:500}
+
+/* The one being recorded. */
+.flight.tracked{
+  background:var(--card);   /* fallback: color-mix is Safari 16.4+ */
+  background:color-mix(in srgb,var(--state) 9%,transparent);
+  border-bottom-color:transparent;
+  border-radius:10px;
+  padding-left:12px;padding-right:12px;
+  margin:6px -12px;
+}
+.flight .tag{
+  grid-column:1/-1;
+  font-family:var(--mono);font-size:9px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--state);margin-bottom:3px;
+}
+.flight.tracked .price{color:var(--state)}
+
+.board-note{
+  font-size:11px;color:var(--dim);margin-top:12px;line-height:1.55;
+}
+.board-note.warn{color:var(--signal)}
+.board-note:empty{display:none}
 
 /* ---- mobile ------------------------------------------------------------
-   Everything above is sized for a phone held one-handed. These are the
-   guards for the narrow end of that range (iPhone SE at 320px) and for the
-   long strings -- airline names and reasons -- that would otherwise push the
-   page sideways. */
+   Sized for a phone held one-handed. These are the guards for the narrow end
+   (iPhone SE at 320px) and for the long strings -- airline names, reasons --
+   that would otherwise push the page sideways. */
 .stats{gap:8px}
 .stat{min-width:0}
 .stat .val{overflow-wrap:anywhere}
@@ -252,8 +276,8 @@ body{
 
 @media (max-width:359px){
   .route-code{font-size:22px}
-  .stop .t{font-size:15px}
-  .leg{padding-left:18px}
-  .leg .stop::before{left:-18px}
-  .stop .d{font-size:9px}
+  .fare{font-size:44px}
+  .flight .price{font-size:15px}
+  .flight .when{font-size:12px}
+  .flight .detail{font-size:10.5px}
 }

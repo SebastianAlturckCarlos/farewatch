@@ -43,8 +43,21 @@ read when you want one.
 
 ## Reading the screen
 
-**The verdict** is the only coloured thing on the page. Orange means buy, teal
-means hold. Nothing else is tinted, so you can't misread it in a hurry.
+**The verdict and the fare** sit at the top, and the verdict is the only
+coloured thing on the page. Orange means buy, teal means hold. Nothing else is
+tinted, so you can't misread it in a hurry.
+
+**The board** is the whole point of the screen. Every flight Google is showing,
+cheapest first, so the headline number is something you can check rather than
+something you have to trust. The row being recorded is tinted and tagged
+*tracking*. Rows that break your rules stay visible but recede, each labelled
+with what disqualifies it — `2 stops`, `lands next day`, `lands 19:40`.
+
+Reading it takes about two seconds, and on this route it says something the
+headline fare can't: every cheap option lands the next day. $1,587 is real, and
+it is a 17-hour routing through ORD and CLT that touches down at 14:10 on the
+15th. The 05:00 departure that gets you there the same day at 13:58 is $2,179.
+That gap is the actual decision, and it is now on screen instead of buried.
 
 **The position bar** is your percentile made physical — where today's fare sits
 between the cheapest and dearest you've ever recorded, with a notch at your
@@ -58,9 +71,9 @@ separately: a 2-pax search needs both seats in the same bucket, so when
 2×(1-pax) comes in well under the 2-pax fare, the cheap bucket is nearly empty.
 Marked "Thin" past 15%. This moves *before* the price does.
 
-**Viable itineraries** counts routings with ≤1 stop arriving before 18:00 —
-daylight landing, since you've got a ~90 minute transfer to La Toc. When it
-drops to 2–3, seats are going regardless of the headline fare.
+**Fit your rules** counts the board rows that survive `max_stops`,
+`same_day_arrival` and `latest_arrival_hour`. It is 2 of 8 today. When it drops
+to one, seats are going regardless of what the headline fare does.
 
 ---
 

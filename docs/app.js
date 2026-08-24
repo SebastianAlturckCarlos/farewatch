@@ -80,64 +80,61 @@ function drawPosition(el, t) {
   el.high.textContent = money(hi);
 }
 
-/* ---- itinerary ----------------------------------------------------------
-   Drawn as a timeline, not a table. Google gives exact endpoint times and
-   layover durations but not every hop's own clock, so a per-segment table is
-   mostly empty cells. Departure, what happens in the middle, arrival -- that
-   is the shape of the information, so that is the shape of the display. */
-const T = iso => (iso ? iso.slice(11, 16) : "");
-const D = iso => (iso
-  ? new Date(iso + ":00").toLocaleDateString("en-US",
-      { weekday: "short", day: "numeric", month: "short" })
-  : "");
+/* ---- the board ----------------------------------------------------------
+   Showing one itinerary made every other number unverifiable -- you could see
+   "$2,179, BUY" but not why, or what it was chosen over. The whole board goes
+   on screen, cheapest first, with the ones that break your rules dimmed and
+   labelled with what disqualifies them. On this route that reads at a glance:
+   everything cheap lands the next day. */
+const T = iso => (iso ? iso.slice(11, 16) : "—");
 
-function renderItinerary(f, t) {
-  const it = t.itinerary;
-  const segs = (it && it.segments) || [];
-  if (!segs.length) { f.itinbox.hidden = true; return; }
-  f.itinbox.hidden = false;
-  f.estbadge.hidden = !t.estimate;
+function flightRow(b) {
+  const nextDay = b.depart_at && b.arrive_at
+    && b.arrive_at.slice(0, 10) !== b.depart_at.slice(0, 10);
 
-  const stops = it.stops ?? Math.max(0, segs.length - 1);
-  f.itinsum.textContent = [
-    it.airline,
-    stops === 0 ? "nonstop" : stops + (stops > 1 ? " stops" : " stop"),
-    it.total_label,
-  ].filter(Boolean).join(" · ");
+  const via = b.stops === 0
+    ? "nonstop"
+    : `${b.stops} stop${b.stops > 1 ? "s" : ""} ${(b.via || []).join(", ")}`;
+  // A single layover's length is the difference between a tolerable connection
+  // and a day at an airport, so it earns the space.
+  const lay = (b.layovers || []).length === 1 && b.layovers[0].label
+    ? ` (${b.layovers[0].label})` : "";
 
-  const stop = (iso, code, extra) => `<li class="stop">
-      <span class="t">${T(iso) || "—"}</span>
-      <span class="a">${code}</span>
-      <span class="d">${extra || D(iso)}</span>
+  const detail = [via + lay, b.total_label, b.airline].filter(Boolean).join(" · ");
+
+  return `<li class="flight${b.fits ? "" : " off"}${b.tracked ? " tracked" : ""}">
+      ${b.tracked ? '<span class="tag">tracking</span>' : ""}
+      <span class="price">$${b.price.toLocaleString("en-US")}</span>
+      <span class="when">${T(b.depart_at)} → ${T(b.arrive_at)}${
+        nextDay ? '<i class="plus">+1</i>' : ""}</span>
+      <span class="detail">${detail}</span>
+      ${b.why ? `<span class="why">${b.why}</span>` : ""}
     </li>`;
+}
 
-  const rows = [stop(it.depart_at, segs[0].from)];
-  (it.layovers || []).forEach(l => {
-    rows.push(`<li class="hop">${l.label || "—"} in ${l.at}</li>`);
-  });
-  const arrivesNextDay = it.depart_at && it.arrive_at
-    && it.arrive_at.slice(0, 10) !== it.depart_at.slice(0, 10);
-  rows.push(stop(it.arrive_at, segs[segs.length - 1].to,
-    arrivesNextDay ? D(it.arrive_at) + " +1" : null));
-  f.legs.innerHTML = rows.join("");
-  f.legs.classList.toggle("next-day", !!arrivesNextDay);
+function renderBoard(f, t) {
+  const rows = t.board || [];
+  if (!rows.length) { f.boardbox.hidden = true; return; }
+  f.boardbox.hidden = false;
 
-  // One line, and only when there is something you would act on.
-  f.itinnote.classList.remove("warn");
-  let note = "";
+  const fits = rows.filter(b => b.fits).length;
+  f.boardcount.textContent = `${rows.length} shown · ${fits} fit your rules`;
+  f.flights.innerHTML = rows.map(flightRow).join("");
+
+  f.boardnote.classList.remove("warn");
   if (t.estimate) {
-    note = "Estimated — the two halves priced separately, not one bookable fare.";
-    f.itinnote.classList.add("warn");
-  } else if (t.cheapest_any && t.cheapest_any < t.current) {
-    const save = Math.round(t.current - t.cheapest_any);
-    note = `A $${t.cheapest_any.toLocaleString("en-US")} fare exists but breaks `
-         + `your rules — saves $${save.toLocaleString("en-US")}, costs you a `
-         + `stop or a next-day landing.`;
-  } else if (t.arrive_at && !t.daylight_ok) {
-    note = "Lands after your cutoff — no daylight transfer to La Toc.";
-    f.itinnote.classList.add("warn");
+    f.boardnote.textContent =
+      "Estimated — priced as two separate tickets, not one bookable fare.";
+    f.boardnote.classList.add("warn");
+  } else if (fits === 0) {
+    f.boardnote.textContent =
+      "Nothing on the board meets your rules right now.";
+    f.boardnote.classList.add("warn");
+  } else {
+    f.boardnote.textContent =
+      "Dimmed flights break your rules: more stops than you want, or a "
+      + "next-day landing that costs a night of the trip.";
   }
-  f.itinnote.textContent = note;
 }
 
 /* ---- render ------------------------------------------------------------- */
@@ -200,7 +197,7 @@ function renderTrip(t) {
     if (t.n_options != null && t.n_options <= 3) f.opts.classList.add("warn");
   }
 
-  renderItinerary(f, t);
+  renderBoard(f, t);
   f.deadline.textContent = `${t.deadline} · ${t.days_left}d`;
   f.reasons.innerHTML = t.reasons.map(r => `<li>${r}</li>`).join("");
   return node;

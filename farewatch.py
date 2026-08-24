@@ -121,6 +121,7 @@ NEW_COLUMNS = (
     ("itinerary", "TEXT"),       # full JSON: every segment and layover
     ("source", "TEXT"),          # google-flights | fast-flights tier | via-XXX
     ("cheapest_any", "REAL"),    # cheapest on the board, rules ignored
+    ("board", "TEXT"),           # full JSON: every itinerary Google showed
 )
 
 
@@ -450,6 +451,54 @@ def qualifies(itin, trip):
     return True
 
 
+def why_not(itin, trip):
+    """Short reason this itinerary is not the one we track. None if it is fine.
+
+    Kept terse on purpose -- it sits at the end of a row on a phone, so it has
+    to say the disqualifying thing in three or four words, not explain itself.
+    """
+    reasons = []
+    if trip.get("max_stops") is not None and itin.get("stops", 0) > trip["max_stops"]:
+        n = itin["stops"]
+        reasons.append(f"{n} stops")
+    dep, arr = itin.get("depart_at"), itin.get("arrive_at")
+    if trip.get("same_day_arrival", True) and dep and arr and arr[:10] != dep[:10]:
+        reasons.append("lands next day")
+    elif arr and trip.get("latest_arrival_hour") is not None:
+        if datetime.fromisoformat(arr).hour >= trip["latest_arrival_hour"]:
+            reasons.append(f"lands {arr[11:16]}")
+    return ", ".join(reasons) or None
+
+
+def board(rows, trip, pick, limit=12):
+    """The whole departures board, trimmed for the phone.
+
+    The app used to show one itinerary -- the one we track -- which made every
+    other number on the screen unverifiable. Seeing the board is what makes the
+    verdict legible: you can tell at a glance whether $2,179 is the sane
+    shoulder of a tight market or the one survivor of a bad one.
+    """
+    out = []
+    for r in rows[:limit]:
+        out.append({
+            "price": r["price"],
+            "stops": r["stops"],
+            "via": [l["at"] for l in r["layovers"]],
+            "layovers": r["layovers"],
+            "depart_at": r["depart_at"],
+            "arrive_at": r["arrive_at"],
+            "total_label": r["total_label"],
+            "total_minutes": r["total_minutes"],
+            "airline": r["airline"],
+            "fits": qualifies(r, trip),
+            "why": why_not(r, trip),
+            "tracked": (r["price"] == pick["price"]
+                        and r["depart_at"] == pick["depart_at"]
+                        and r["stops"] == pick["stops"]),
+        })
+    return out
+
+
 def fetch_browser(trip, adults, verbose=True):
     """Real through-fares, read off a rendered Google Flights board.
 
@@ -495,6 +544,7 @@ def fetch_browser(trip, adults, verbose=True):
         "estimate": False,
         "gateway": None,
         "itinerary": itin,
+        "board": board(rows, trip, pick),
         "cheapest_any": cheapest,
         "note": note,
     }
@@ -594,8 +644,8 @@ def record(conn, trip):
             adults, total_price, per_person, solo_price, bucket_gap, n_options,
             best_airline, best_duration, daylight_ok, raw,
             stops, duration_min, estimate, gateway, arrive_at, itinerary,
-            source, cheapest_any)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            source, cheapest_any, board)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     """, (
         datetime.now().isoformat(timespec="seconds"), trip["name"],
         trip["origin"], trip["dest"], trip["depart"], trip["return"],
@@ -605,6 +655,7 @@ def record(conn, trip):
         itin.get("stops"), itin.get("total_minutes"),
         1 if r["estimate"] else 0, r.get("gateway"), arrive_at,
         json.dumps(itin), r["tier"], r.get("cheapest_any"),
+        json.dumps(r.get("board")) if r.get("board") else None,
     ))
     conn.commit()
 
@@ -639,6 +690,18 @@ def record(conn, trip):
             print(f"        layover {l['at']}  {l.get('label') or '—'}")
     if r.get("note"):
         print(f"  note: {r['note']}")
+    if r.get("board"):
+        print(f"  the board ({len(r['board'])} itineraries):")
+        for b in r["board"]:
+            mark = "->" if b["tracked"] else ("  " if b["fits"] else " x")
+            via = ", ".join(b["via"]) or "nonstop"
+            dep = (b["depart_at"] or "")[11:16]
+            arr = (b["arrive_at"] or "")[11:16]
+            plus = "+1" if (b["depart_at"] and b["arrive_at"]
+                            and b["arrive_at"][:10] != b["depart_at"][:10]) else "  "
+            print(f"   {mark} ${b['price']:>7,.0f}  {dep}-{arr}{plus} "
+                  f"{b['total_label'] or '':>8}  {via:<12} "
+                  f"{b['airline'] or '':<10} {b['why'] or ''}")
     print(f"  options found: {r['n_options']}"
           + ("  (structural, not a scarcity signal on an estimate)"
              if r["estimate"] else ""))
@@ -652,12 +715,19 @@ def record(conn, trip):
     return total
 
 
+def _json(blob):
+    try:
+        return json.loads(blob) if blob else None
+    except (TypeError, ValueError):
+        return None
+
+
 def stats(conn, trip):
     """Return a JSON-serialisable snapshot of everything we know about a trip."""
     rows = conn.execute("""
         SELECT observed_at, total_price, bucket_gap, n_options, adults,
                best_airline, estimate, stops, arrive_at, itinerary, gateway,
-               daylight_ok, duration_min, source, cheapest_any
+               daylight_ok, duration_min, source, cheapest_any, board
         FROM observations WHERE trip=? AND total_price IS NOT NULL
         ORDER BY observed_at
     """, (trip["name"],)).fetchall()
@@ -689,10 +759,7 @@ def stats(conn, trip):
     last_gap, last_opts = last[2], last[3]
     is_estimate = bool(last[6])
 
-    try:
-        itin = json.loads(last[9]) if last[9] else None
-    except (TypeError, ValueError):
-        itin = None
+    itin = _json(last[9])
 
     base.update({
         "current": latest,
@@ -718,6 +785,7 @@ def stats(conn, trip):
         "itinerary_line": summarize(itin),
         "source": last[13],
         "cheapest_any": last[14],
+        "board": _json(last[15]) or [],
         "series": [{"t": r[0], "p": r[1]} for r in rows],
     })
 

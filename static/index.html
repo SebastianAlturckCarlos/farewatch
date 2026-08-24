@@ -36,17 +36,28 @@
       <div class="verdict" data-f="verdict"></div>
       <div class="fare" data-f="fare"></div>
       <div class="fare-sub" data-f="faresub"></div>
+    </div>
 
-      <div class="position">
-        <div class="lbl">Position in observed range</div>
-        <div class="track">
-          <div class="fill" data-f="fill"></div>
-          <div class="notch" data-f="notch"><span>target</span></div>
-          <div class="marker" data-f="marker"></div>
-        </div>
-        <div class="track-ends">
-          <span data-f="low"></span><span data-f="high"></span>
-        </div>
+    <!-- the board: every flight Google is showing, cheapest first -->
+    <section class="board" data-f="boardbox" hidden>
+      <div class="board-head">
+        <span class="lbl">Flights</span>
+        <span class="board-count" data-f="boardcount"></span>
+      </div>
+      <ol class="flights" data-f="flights"></ol>
+      <p class="board-note" data-f="boardnote"></p>
+    </section>
+
+    <!-- history: secondary to the flights themselves -->
+    <div class="position">
+      <div class="lbl">Position in observed range</div>
+      <div class="track">
+        <div class="fill" data-f="fill"></div>
+        <div class="notch" data-f="notch"><span>target</span></div>
+        <div class="marker" data-f="marker"></div>
+      </div>
+      <div class="track-ends">
+        <span data-f="low"></span><span data-f="high"></span>
       </div>
     </div>
 
@@ -63,19 +74,9 @@
 
     <ul class="rows">
       <li><span class="lbl">Fare bucket</span><span class="val" data-f="bucket"></span></li>
-      <li><span class="lbl">Viable itineraries</span><span class="val" data-f="opts"></span></li>
+      <li><span class="lbl">Fit your rules</span><span class="val" data-f="opts"></span></li>
       <li><span class="lbl">Decide by</span><span class="val" data-f="deadline"></span></li>
     </ul>
-
-    <section class="itin" data-f="itinbox" hidden>
-      <div class="itin-head">
-        <span class="lbl">Your itinerary</span>
-        <span class="badge" data-f="estbadge" hidden>estimate</span>
-      </div>
-      <div class="itin-sum" data-f="itinsum"></div>
-      <ol class="leg" data-f="legs"></ol>
-      <p class="itin-note" data-f="itinnote"></p>
-    </section>
 
     <ul class="reasons" data-f="reasons"></ul>
   </section>

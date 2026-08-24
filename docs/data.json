@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-24T23:10:06+00:00",
+ "generated_at": "2026-08-24T18:37:47-05:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -12,14 +12,10 @@
    "target": 2200,
    "deadline": "2027-03-01",
    "days_left": 189,
-   "n": 2,
+   "n": 1,
    "series": [
     {
-     "t": "2026-08-24T18:07:42",
-     "p": 2179.0
-    },
-    {
-     "t": "2026-08-24T23:10:06",
+     "t": "2026-08-24T18:37:47",
      "p": 2179.0
     }
    ],
@@ -40,7 +36,7 @@
    "bucket_thin": false,
    "n_options": 2,
    "airline": "American",
-   "observed_at": "2026-08-24T23:10:06",
+   "observed_at": "2026-08-24T18:37:47",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -76,7 +72,7 @@
      {
       "at": "MIA",
       "minutes": 55,
-      "label": "55 min"
+      "label": "55m"
      }
     ],
     "carbon": null,
@@ -85,6 +81,202 @@
    "itinerary_line": "American \u00b7 1 stop MIA \u00b7 05:00 \u2192 13:58 \u00b7 7h 58m",
    "source": "google-flights",
    "cheapest_any": 1587.0,
+   "board": [
+    {
+     "price": 1587.0,
+     "stops": 2,
+     "via": [
+      "ORD",
+      "CLT"
+     ],
+     "layovers": [
+      {
+       "at": "ORD",
+       "minutes": 445,
+       "label": "7h 25m"
+      },
+      {
+       "at": "CLT",
+       "minutes": 76,
+       "label": "1h 16m"
+      }
+     ],
+     "depart_at": "2027-06-14T19:52",
+     "arrive_at": "2027-06-15T14:10",
+     "total_label": "17h 18m",
+     "total_minutes": 1038,
+     "airline": "American",
+     "fits": false,
+     "why": "2 stops, lands next day",
+     "tracked": false
+    },
+    {
+     "price": 1587.0,
+     "stops": 2,
+     "via": [
+      "CLT",
+      "MIA"
+     ],
+     "layovers": [
+      {
+       "at": "CLT",
+       "minutes": 501,
+       "label": "8h 21m"
+      },
+      {
+       "at": "MIA",
+       "minutes": 172,
+       "label": "2h 52m"
+      }
+     ],
+     "depart_at": "2027-06-14T17:20",
+     "arrive_at": "2027-06-15T13:58",
+     "total_label": "19h 38m",
+     "total_minutes": 1178,
+     "airline": "American",
+     "fits": false,
+     "why": "2 stops, lands next day",
+     "tracked": false
+    },
+    {
+     "price": 1610.0,
+     "stops": 1,
+     "via": [
+      "CLT"
+     ],
+     "layovers": [
+      {
+       "at": "CLT",
+       "minutes": 755,
+       "label": "12h 35m"
+      }
+     ],
+     "depart_at": "2027-06-14T17:20",
+     "arrive_at": "2027-06-15T14:10",
+     "total_label": "19h 50m",
+     "total_minutes": 1190,
+     "airline": "American",
+     "fits": false,
+     "why": "lands next day",
+     "tracked": false
+    },
+    {
+     "price": 1969.0,
+     "stops": 1,
+     "via": [
+      "MIA"
+     ],
+     "layovers": [
+      {
+       "at": "MIA",
+       "minutes": 1114,
+       "label": "18h 34m"
+      }
+     ],
+     "depart_at": "2027-06-14T11:23",
+     "arrive_at": "2027-06-15T13:58",
+     "total_label": "25h 35m",
+     "total_minutes": 1535,
+     "airline": "American",
+     "fits": false,
+     "why": "lands next day",
+     "tracked": false
+    },
+    {
+     "price": 2179.0,
+     "stops": 1,
+     "via": [
+      "MIA"
+     ],
+     "layovers": [
+      {
+       "at": "MIA",
+       "minutes": 55,
+       "label": "55m"
+      }
+     ],
+     "depart_at": "2027-06-14T05:00",
+     "arrive_at": "2027-06-14T13:58",
+     "total_label": "7h 58m",
+     "total_minutes": 478,
+     "airline": "American",
+     "fits": true,
+     "why": null,
+     "tracked": true
+    },
+    {
+     "price": 2267.0,
+     "stops": 2,
+     "via": [
+      "ORD",
+      "MIA"
+     ],
+     "layovers": [
+      {
+       "at": "ORD",
+       "minutes": 435,
+       "label": "7h 15m"
+      },
+      {
+       "at": "MIA",
+       "minutes": 57,
+       "label": "57m"
+      }
+     ],
+     "depart_at": "2027-06-14T19:52",
+     "arrive_at": "2027-06-15T13:58",
+     "total_label": "17h 06m",
+     "total_minutes": 1026,
+     "airline": "American",
+     "fits": false,
+     "why": "2 stops, lands next day",
+     "tracked": false
+    },
+    {
+     "price": 2564.0,
+     "stops": 1,
+     "via": [
+      "ATL"
+     ],
+     "layovers": [
+      {
+       "at": "ATL",
+       "minutes": 713,
+       "label": "11h 53m"
+      }
+     ],
+     "depart_at": "2027-06-14T18:42",
+     "arrive_at": "2027-06-15T14:10",
+     "total_label": "18h 28m",
+     "total_minutes": 1108,
+     "airline": "Delta",
+     "fits": false,
+     "why": "lands next day",
+     "tracked": false
+    },
+    {
+     "price": 3252.0,
+     "stops": 1,
+     "via": [
+      "ATL"
+     ],
+     "layovers": [
+      {
+       "at": "ATL",
+       "minutes": 52,
+       "label": "52m"
+      }
+     ],
+     "depart_at": "2027-06-14T05:40",
+     "arrive_at": "2027-06-14T14:10",
+     "total_label": "7h 30m",
+     "total_minutes": 450,
+     "airline": "Delta",
+     "fits": true,
+     "why": null,
+     "tracked": false
+    }
+   ],
    "change_7d": null,
    "change_30d": null
   }
