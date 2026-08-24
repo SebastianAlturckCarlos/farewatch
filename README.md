@@ -64,6 +64,29 @@ drops to 2–3, seats are going regardless of the headline fare.
 
 ---
 
+## Who does what
+
+Two things run on a schedule, and they do not overlap:
+
+| | GitHub Actions | Windows task |
+|---|---|---|
+| Runs | 8am / 8pm Central, in the cloud | 8:10am / 8:10pm, on this PC |
+| Records to | `docs/history.json` (committed) | `fares.db` (local) |
+| Updates the phone app | yes | no |
+| **Emails you** | **yes** | no, by default |
+| Works with the PC off | yes | no |
+
+Actions is the one that matters: it feeds the phone app and sends the alerts,
+and it keeps its "already told you about this" state in `docs/notified.json`
+so it never repeats itself. The Windows task is insurance — it keeps an
+independent local series in case Google ever starts serving the cloud runners
+a bot challenge instead of fares, which is the one failure this setup is
+exposed to.
+
+They deliberately do not both email. If you ever want to flip ownership to this
+machine, delete the workflow and re-register the task with
+`install-task.ps1 -WithEmail`.
+
 ## Email alerts
 
 You hear from it when the fare **moves**, and not otherwise. A quiet inbox
