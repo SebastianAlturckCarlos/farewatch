@@ -31,7 +31,10 @@ jobs:
           # declared in its metadata, so a clean install of 3.1.0 fails at
           # import. Install it explicitly rather than relying on another
           # package happening to pull it in.
-          python -m pip install "fast-flights==3.1.0" typing_extensions
+          python -m pip install "fast-flights==3.1.0" typing_extensions playwright
+          # MCI-UVF results are rendered client-side, so the collector needs a
+          # real browser. See gflights.py for why no HTTP-only client can do it.
+          python -m playwright install --with-deps chromium
           python -c "import fast_flights, primp; print('fast_flights + primp import OK')"
 
       - name: Take a reading
@@ -40,6 +43,7 @@ jobs:
           FAREWATCH_SMTP_USER: ${{ secrets.FAREWATCH_SMTP_USER }}
           FAREWATCH_SMTP_PASS: ${{ secrets.FAREWATCH_SMTP_PASS }}
         run: python collect.py
+        timeout-minutes: 15
 
       - name: Commit if changed
         run: |

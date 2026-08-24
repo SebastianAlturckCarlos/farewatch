@@ -8,7 +8,10 @@ const statusEl = document.getElementById("status");
 const CACHE_KEY = "farewatch:last";
 
 const money = n => "$" + Math.round(n).toLocaleString("en-US");
-const pct = n => (n >= 0 ? "+" : "") + n.toFixed(1) + "%";
+// `|| 0` collapses JavaScript's negative zero, which otherwise renders a
+// bucket gap of -0.04% as a faintly alarming "-0.0%".
+const pct = n => { const v = (Math.round(n * 10) / 10) || 0;
+                   return (v >= 0 ? "+" : "") + v.toFixed(1) + "%"; };
 
 function ago(iso) {
   const mins = Math.floor((Date.now() - new Date(iso)) / 60000);
@@ -78,12 +81,13 @@ function drawPosition(el, t) {
 }
 
 /* ---- itinerary ----------------------------------------------------------
-   The headline number is only half the story. A fare that drops $200 by
-   adding a six-hour layover has not got cheaper, so the whole routing rides
-   along with every reading and gets shown as a boarding-pass stub. */
-const hhmm = iso => (iso ? iso.slice(11, 16) : "");
-const dayOf = iso => (iso
-  ? new Date(iso).toLocaleDateString("en-US",
+   Drawn as a timeline, not a table. Google gives exact endpoint times and
+   layover durations but not every hop's own clock, so a per-segment table is
+   mostly empty cells. Departure, what happens in the middle, arrival -- that
+   is the shape of the information, so that is the shape of the display. */
+const T = iso => (iso ? iso.slice(11, 16) : "");
+const D = iso => (iso
+  ? new Date(iso + ":00").toLocaleDateString("en-US",
       { weekday: "short", day: "numeric", month: "short" })
   : "");
 
@@ -91,40 +95,49 @@ function renderItinerary(f, t) {
   const it = t.itinerary;
   const segs = (it && it.segments) || [];
   if (!segs.length) { f.itinbox.hidden = true; return; }
-
   f.itinbox.hidden = false;
-  f.itinline.textContent = t.itinerary_line || "";
   f.estbadge.hidden = !t.estimate;
 
-  const lay = {};
-  (it.layovers || []).forEach(l => { lay[l.at] = l; });
+  const stops = it.stops ?? Math.max(0, segs.length - 1);
+  f.itinsum.textContent = [
+    it.airline,
+    stops === 0 ? "nonstop" : stops + (stops > 1 ? " stops" : " stop"),
+    it.total_label,
+  ].filter(Boolean).join(" · ");
 
-  f.segs.innerHTML = segs.map((s, i) => {
-    const l = i < segs.length - 1 ? lay[s.to] : null;
-    const layRow = l
-      ? `<li class="lay"><span>${l.at} layover</span><span>${l.label || "—"}</span></li>`
-      : "";
-    return `<li class="seg">
-        <span class="hop">${s.from}<i>→</i>${s.to}</span>
-        <span class="when">${dayOf(s.dep)} · ${hhmm(s.dep)}–${hhmm(s.arr)}</span>
-        <span class="plane">${s.plane || ""}</span>
-      </li>${layRow}`;
-  }).join("");
+  const stop = (iso, code, extra) => `<li class="stop">
+      <span class="t">${T(iso) || "—"}</span>
+      <span class="a">${code}</span>
+      <span class="d">${extra || D(iso)}</span>
+    </li>`;
 
-  const c = it.connection;
+  const rows = [stop(it.depart_at, segs[0].from)];
+  (it.layovers || []).forEach(l => {
+    rows.push(`<li class="hop">${l.label || "—"} in ${l.at}</li>`);
+  });
+  const arrivesNextDay = it.depart_at && it.arrive_at
+    && it.arrive_at.slice(0, 10) !== it.depart_at.slice(0, 10);
+  rows.push(stop(it.arrive_at, segs[segs.length - 1].to,
+    arrivesNextDay ? D(it.arrive_at) + " +1" : null));
+  f.legs.innerHTML = rows.join("");
+  f.legs.classList.toggle("next-day", !!arrivesNextDay);
+
+  // One line, and only when there is something you would act on.
   f.itinnote.classList.remove("warn");
-  if (c && c.ok === false) {
-    f.itinnote.textContent = c.label;
+  let note = "";
+  if (t.estimate) {
+    note = "Estimated — the two halves priced separately, not one bookable fare.";
     f.itinnote.classList.add("warn");
-  } else if (t.estimate) {
-    f.itinnote.textContent =
-      "Legs priced separately — no through-fare is filed yet, so this is an estimate.";
+  } else if (t.cheapest_any && t.cheapest_any < t.current) {
+    const save = Math.round(t.current - t.cheapest_any);
+    note = `A $${t.cheapest_any.toLocaleString("en-US")} fare exists but breaks `
+         + `your rules — saves $${save.toLocaleString("en-US")}, costs you a `
+         + `stop or a next-day landing.`;
   } else if (t.arrive_at && !t.daylight_ok) {
-    f.itinnote.textContent = "Not a daylight arrival.";
+    note = "Lands after your cutoff — no daylight transfer to La Toc.";
     f.itinnote.classList.add("warn");
-  } else {
-    f.itinnote.textContent = "";
   }
+  f.itinnote.textContent = note;
 }
 
 /* ---- render ------------------------------------------------------------- */

@@ -149,36 +149,61 @@ fares.db             SQLite history (created on first run)
 
 ## Data source
 
-`fast-flights` (3.1.0) scrapes Google Flights through its protobuf query
-parameter. It is the only free source still standing, and it is a better one
-than it looks: every reading comes back with the **whole itinerary** — each
-segment, both airport codes, local departure and arrival stamps, leg duration
-and aircraft type — not just a price. All of that is recorded and shown.
+Two sources, tried in order.
 
-The obvious upgrade used to be the **Amadeus Self-Service API**. That door is
-closed: Amadeus decommissioned the Self-Service portal on **17 July 2026** and
-deactivated existing keys. There is no free replacement with real GDS data —
-the remaining options (Duffel, Kiwi, Ignav, SerpApi) are paid, gated behind a
-business account, or both. So: stay on `fast-flights`, pin the version, and
-when a refresh starts failing try `pip install -U fast-flights` first.
+**`gflights.py` — headless Chromium, primary.** For MCI→UVF, Google returns a
+1.8 MB page containing *zero* prices: the results are rendered client-side by
+JavaScript. Nothing that fetches HTML can read that — not `fast-flights`, not a
+different library, not a hand-rolled request. Confirmed by fetching the page
+directly and counting: 0 price strings on MCI→UVF, 42 on MIA→UVF. The page has
+to execute JS, so the collector drives a real browser.
 
-### The MCI→UVF quirk
+It reads each result's `aria-label`, which is a complete sentence:
 
-Google will not build MCI→UVF connecting itineraries for *any* 2027 date yet,
-though it prices MCI→UVF fine for dates a couple of months out, and prices
-CLT/MIA/ATL/JFK→UVF fine for June 2027. When there is no through-fare,
-farewatch prices `MCI→gateway` and `gateway→UVF` separately and sums them.
+> From 2179 US dollars round trip total. 1 stop flight with American. Leaves
+> Kansas City International Airport at 5:00 AM on Monday, June 14 and arrives
+> at Hewanorra International Airport at 1:58 PM on Monday, June 14. Total
+> duration 7 hr 58 min. Layover (1 of 1) is a 55 min layover at Miami…
 
-Those readings are labelled **estimate**, in the app and in the emails, because
-that is what they are — two fares that happen to add up, not one you can book.
-It also checks whether the halves actually connect. Right now they do not: the
-AA nonstop MIA→UVF pushes back at 10:10, and no MCI feeder lands before 15:36.
-**There is no same-day MCI→UVF connection as currently filed** — the real trip
-needs a gateway overnight or a day-earlier departure, and the estimate does not
-include that hotel night. The app says so on the itinerary line.
+That is a far more durable contract than Google's obfuscated CSS class names,
+which change without notice. Accessibility labels don't, because screen readers
+depend on them.
 
-This resolves itself: the day a through-fare gets filed, the estimate flag
-disappears on its own.
+**`fast-flights` — fallback.** Still the right tool for routes Google
+server-renders, and much faster (~2s against ~15s). Pin the version; when a
+refresh starts failing, `pip install -U fast-flights` is usually the fix. Note
+that 3.1.0 imports `typing_extensions` without declaring it as a dependency, so
+a clean environment needs it installed explicitly.
+
+The **Amadeus Self-Service API** used to be the obvious upgrade. That door is
+closed: Amadeus decommissioned the portal on **17 July 2026** and deactivated
+existing keys. There is no free replacement with real GDS data — Duffel, Kiwi,
+Ignav and SerpApi are paid, gated behind a business account, or both.
+
+### Cheapest is not what gets tracked
+
+The fare recorded is the cheapest itinerary that **meets your rules** —
+`max_stops`, `same_day_arrival`, and `latest_arrival_hour`. Right now that is
+$2,179: one stop at MIA, 05:00 → 13:58 the same day, 7h 58m.
+
+The board's cheapest is $1,587, and the app says so underneath. It is $592 less
+because it takes two stops and lands at 14:10 **the next day** — which costs a
+night of a five-night trip and misses the daylight transfer to La Toc. That is
+a trade worth seeing, not a number worth tracking.
+
+Because of this, **"viable itineraries" is now a real scarcity signal**: it
+counts the options that actually satisfy your constraints. When it falls to two
+or three, seats are going regardless of what the headline fare does.
+
+### When the browser has a bad run
+
+Roughly one run in four, the board doesn't finish rendering inside the timeout,
+so `gflights` retries three times. If all three fail, the reading is **skipped**
+rather than falling back to the leg-summed estimate. An estimate is not a
+degraded reading of the same quantity — it prices two separate tickets, nonstop
+legs only, and lands about $500 high. Dropping that into a series of real fares
+would corrupt the low, the high, the percentile, and every alert that reads
+them. A gap in the series is honest; a wrong number is not.
 
 ## Known limits
 

@@ -1,38 +1,20 @@
 [
  {
-  "observed_at": "2026-08-24T17:32:08",
+  "observed_at": "2026-08-24T18:07:42",
   "trip": "St Lucia",
   "origin": "MCI",
   "dest": "UVF",
   "depart": "2027-06-14",
   "ret": "2027-06-19",
   "adults": 2,
-  "total_price": 2711.0,
-  "per_person": 1355.5,
-  "solo_price": 1304.0,
-  "bucket_gap": 3.9493865030674846,
-  "n_options": 1,
-  "best_airline": "via MIA \u00b7 American + American",
-  "best_duration": null,
+  "total_price": 2179.0,
+  "per_person": 1089.5,
+  "solo_price": 1090.0,
+  "bucket_gap": -0.045871559633027525,
+  "n_options": 2,
+  "best_airline": "American",
+  "best_duration": "7h 58m",
   "daylight_ok": 1,
-  "raw": "{\"tier\": \"via-MIA\", \"note\": \"no same-day connection (needs overnight at gateway)\"}"
- },
- {
-  "observed_at": "2026-08-24T22:44:23",
-  "trip": "St Lucia",
-  "origin": "MCI",
-  "dest": "UVF",
-  "depart": "2027-06-14",
-  "ret": "2027-06-19",
-  "adults": 2,
-  "total_price": 2711.0,
-  "per_person": 1355.5,
-  "solo_price": 1304.0,
-  "bucket_gap": 3.9493865030674846,
-  "n_options": 1,
-  "best_airline": "via MIA \u00b7 American + American",
-  "best_duration": null,
-  "daylight_ok": 1,
-  "raw": "{\"tier\": \"via-MIA\", \"note\": \"no same-day connection (needs overnight at gateway)\"}"
+  "raw": "{\"tier\": \"google-flights\", \"note\": \"$1,587 exists but breaks your rules (extra stop or next-day arrival)\"}"
  }
 ]

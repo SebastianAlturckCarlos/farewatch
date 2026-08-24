@@ -72,6 +72,8 @@ TRIPS = [
         "deadline": "2027-03-01",  # hard decide-by date
         "max_stops": 1,
         "latest_arrival_hour": 18, # daylight arrival; 90 min transfer to La Toc
+        "same_day_arrival": True,  # a next-day landing costs a night of the trip
+        "use_browser": True,       # read real through-fares via gflights.py
         # Google will not build MCI-UVF through-itineraries this far out -- not
         # for June 2027, and not for any 2027 date we probed. When no
         # through-fare exists we price MCI->gateway and gateway->UVF separately
@@ -92,6 +94,8 @@ TRIPS = [
         "deadline": "2027-04-01",
         "max_stops": 1,
         "latest_arrival_hour": 20,
+        "same_day_arrival": True,
+        "use_browser": True,
         "gateways": ["MIA", "FLL", "ATL", "CLT"],
         "enabled": False,          # flip to True if you book flights separately
     },
@@ -115,6 +119,8 @@ NEW_COLUMNS = (
     ("gateway", "TEXT"),         # connecting airport when estimated
     ("arrive_at", "TEXT"),       # ISO arrival at destination
     ("itinerary", "TEXT"),       # full JSON: every segment and layover
+    ("source", "TEXT"),          # google-flights | fast-flights tier | via-XXX
+    ("cheapest_any", "REAL"),    # cheapest on the board, rules ignored
 )
 
 
@@ -424,13 +430,99 @@ def _connection(feed_it, hop_it):
     return {"ok": True, "minutes": gap, "label": f"connects ({_dur(gap)})"}
 
 
+def qualifies(itin, trip):
+    """Does this itinerary meet the rules you would actually book under?
+
+    Cheapest is not the same as best. The $1,587 board-topper on this route is
+    two stops and lands at 14:10 the *next* day, which costs a night of a
+    five-night trip and misses the daylight transfer to La Toc entirely. The
+    fare we track is the cheapest one you would genuinely take.
+    """
+    if trip.get("max_stops") is not None and itin.get("stops", 0) > trip["max_stops"]:
+        return False
+    dep, arr = itin.get("depart_at"), itin.get("arrive_at")
+    if trip.get("same_day_arrival", True) and dep and arr:
+        if arr[:10] != dep[:10]:
+            return False
+    if arr and trip.get("latest_arrival_hour") is not None:
+        if datetime.fromisoformat(arr).hour >= trip["latest_arrival_hour"]:
+            return False
+    return True
+
+
+def fetch_browser(trip, adults, verbose=True):
+    """Real through-fares, read off a rendered Google Flights board.
+
+    This is the primary source. fast-flights cannot see this route at all --
+    Google returns its results as client-side JavaScript, so the HTML has no
+    prices in it no matter which library asks. See gflights.py.
+    """
+    try:
+        import gflights
+    except ImportError:
+        return None
+
+    rows = gflights.search(trip["origin"], trip["dest"], trip["depart"],
+                           trip["return"], adults, verbose=verbose)
+    if not rows:
+        return None
+
+    good = [r for r in rows if qualifies(r, trip)]
+    pick = (good or rows)[0]
+    cheapest = rows[0]["price"]
+
+    note = None
+    if not good:
+        note = ("nothing meets your rules right now; showing the cheapest "
+                "itinerary on the board")
+    elif pick["price"] > cheapest:
+        note = (f"${cheapest:,.0f} exists but breaks your rules "
+                f"(extra stop or next-day arrival)")
+
+    if verbose:
+        print(f"  {len(rows)} itineraries on the board, "
+              f"{len(good)} meet your rules "
+              f"(<= {trip.get('max_stops')} stop, same-day, "
+              f"arrives before {trip.get('latest_arrival_hour')}:00)")
+
+    itin = dict(pick)
+    itin.pop("price", None)
+    return {
+        "total": pick["price"],
+        # Now a real scarcity signal: how many BOOKABLE options fit your rules.
+        "n_options": len(good),
+        "tier": "google-flights",
+        "estimate": False,
+        "gateway": None,
+        "itinerary": itin,
+        "cheapest_any": cheapest,
+        "note": note,
+    }
+
+
 def fetch(trip, adults, verbose=True):
     """Return a reading dict, or None.
 
-    Walks the tiers from strict to loose and returns the first that yields
-    results, so a too-narrow filter can never present as "no flights exist".
-    Falls back to leg-by-leg estimation only when no through-fare exists.
+    Order matters. The browser sees real through-fares and is tried first;
+    fast-flights is the quick fallback for routes it can actually read; the
+    leg-by-leg estimate is the last resort and is always flagged as one.
     """
+    if trip.get("use_browser", True):
+        r = fetch_browser(trip, adults, verbose)
+        if r:
+            return r
+        # Deliberately do NOT fall through to the leg-summed estimate here.
+        # Once a route is known to have real through-fares, an estimate is not
+        # a degraded reading of the same quantity -- it measures something
+        # else (two separate tickets, nonstop legs only) and lands roughly
+        # $500 high. Writing that into the middle of a real series corrupts
+        # the low, the high, the percentile and every alert that reads them.
+        # A gap is honest; a wrong number is not.
+        if verbose:
+            print("  browser returned nothing — skipping this reading rather "
+                  "than recording an estimate that isn't comparable")
+        return None
+
     last_err = None
     for name, opts in TIERS:
         try:
@@ -501,8 +593,9 @@ def record(conn, trip):
         INSERT INTO observations (observed_at, trip, origin, dest, depart, ret,
             adults, total_price, per_person, solo_price, bucket_gap, n_options,
             best_airline, best_duration, daylight_ok, raw,
-            stops, duration_min, estimate, gateway, arrive_at, itinerary)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            stops, duration_min, estimate, gateway, arrive_at, itinerary,
+            source, cheapest_any)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     """, (
         datetime.now().isoformat(timespec="seconds"), trip["name"],
         trip["origin"], trip["dest"], trip["depart"], trip["return"],
@@ -511,24 +604,41 @@ def record(conn, trip):
         json.dumps({"tier": r["tier"], "note": r.get("note")}),
         itin.get("stops"), itin.get("total_minutes"),
         1 if r["estimate"] else 0, r.get("gateway"), arrive_at,
-        json.dumps(itin),
+        json.dumps(itin), r["tier"], r.get("cheapest_any"),
     ))
     conn.commit()
 
-    print(f"  cheapest ({adults} pax): ${total:,.0f}  (${total/adults:,.0f} pp)"
+    print(f"  best that fits your rules ({adults} pax): ${total:,.0f}  "
+          f"(${total/adults:,.0f} pp)"
           + ("   [ESTIMATE - summed legs, not bookable as one fare]"
              if r["estimate"] else ""))
+    if r.get("cheapest_any") and r["cheapest_any"] < total:
+        print(f"  cheapest on the board: ${r['cheapest_any']:,.0f} "
+              f"-- breaks your rules, not tracked")
     line = summarize(itin)
     if line:
         print(f"  itinerary:  {line}")
-    for seg in itin.get("segments") or []:
+    segs = itin.get("segments") or []
+    lay = {l["at"]: l for l in itin.get("layovers") or []}
+    for i, seg in enumerate(segs):
         dep = seg["dep"] and datetime.fromisoformat(seg["dep"])
         arr = seg["arr"] and datetime.fromisoformat(seg["arr"])
-        when = f'{dep:%a %d %b %H:%M} → {arr:%H:%M}' if dep and arr else "—"
-        print(f"      {seg['from']}→{seg['to']}  {when}  "
-              f"{_dur(seg['minutes']) or '—':>8}  {seg['plane'] or ''}")
+        bits = []
+        if dep:
+            bits.append(f"dep {dep:%a %d %b %H:%M}")
+        if arr:
+            bits.append(f"arr {arr:%H:%M}")
+        if seg.get("minutes"):
+            bits.append(_dur(seg["minutes"]))
+        if seg.get("plane"):
+            bits.append(seg["plane"])
+        print(f"      {seg['from']}→{seg['to']:<4} "
+              + ("  ".join(bits) if bits else ""))
+        l = lay.get(seg["to"]) if i < len(segs) - 1 else None
+        if l:
+            print(f"        layover {l['at']}  {l.get('label') or '—'}")
     if r.get("note"):
-        print(f"  connection: {r['note']}")
+        print(f"  note: {r['note']}")
     print(f"  options found: {r['n_options']}"
           + ("  (structural, not a scarcity signal on an estimate)"
              if r["estimate"] else ""))
@@ -547,7 +657,7 @@ def stats(conn, trip):
     rows = conn.execute("""
         SELECT observed_at, total_price, bucket_gap, n_options, adults,
                best_airline, estimate, stops, arrive_at, itinerary, gateway,
-               daylight_ok, duration_min
+               daylight_ok, duration_min, source, cheapest_any
         FROM observations WHERE trip=? AND total_price IS NOT NULL
         ORDER BY observed_at
     """, (trip["name"],)).fetchall()
@@ -606,6 +716,8 @@ def stats(conn, trip):
         "duration_min": last[12],
         "itinerary": itin,
         "itinerary_line": summarize(itin),
+        "source": last[13],
+        "cheapest_any": last[14],
         "series": [{"t": r[0], "p": r[1]} for r in rows],
     })
 
