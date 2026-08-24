@@ -1,13 +1,22 @@
-/* Shell is cache-first so the app opens instantly.
-   API is network-first so you always get fresh data when you have signal,
-   and the last good response when you don't. */
-const SHELL = "farewatch-shell-v1";
+/* Shell: stale-while-revalidate. API: network-first.
+
+   The shell used to be plain cache-first under a fixed cache name, which meant
+   a device that had installed the app once would serve that build forever --
+   every later fix to app.js or app.css was invisible on the one device that
+   mattered. Now the cached copy is still returned instantly (that is the point
+   of installing it), but a fresh copy is fetched in the background and written
+   over it, so the next launch is current. One launch behind, never stuck.
+
+   Bump SHELL when you want to force an immediate purge rather than waiting for
+   the next launch. */
+const SHELL = "farewatch-shell-v2";
 const DATA  = "farewatch-data-v1";
 const ASSETS = ["/", "/index.html", "/app.css", "/app.js",
                 "/manifest.json", "/icon-192.png", "/icon-512.png"];
 
 self.addEventListener("install", e => {
-  e.waitUntil(caches.open(SHELL).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(SHELL).then(c => c.addAll(ASSETS))
+    .then(() => self.skipWaiting()));
 });
 
 self.addEventListener("activate", e => {
@@ -30,5 +39,15 @@ self.addEventListener("fetch", e => {
     );
     return;
   }
-  e.respondWith(caches.match(e.request).then(hit => hit || fetch(e.request)));
+
+  e.respondWith(caches.match(e.request, { ignoreSearch: true }).then(hit => {
+    const fresh = fetch(e.request).then(res => {
+      if (res && res.ok) {
+        const copy = res.clone();
+        caches.open(SHELL).then(c => c.put(e.request, copy));
+      }
+      return res;
+    }).catch(() => hit);
+    return hit || fresh;
+  }));
 });
