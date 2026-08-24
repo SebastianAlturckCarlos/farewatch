@@ -24,9 +24,18 @@ DATA = os.path.join(DOCS, "data.json")
 # job remembers across runs and does not re-announce the same fare.
 NOTIFIED = os.path.join(DOCS, "notified.json")
 
-COLUMNS = ["observed_at", "trip", "origin", "dest", "depart", "ret", "adults",
-           "total_price", "per_person", "solo_price", "bucket_gap", "n_options",
-           "best_airline", "best_duration", "daylight_ok", "raw"]
+def columns(conn):
+    """Every stored column, read from the schema rather than listed here.
+
+    This used to be a hardcoded list of 16 names. Nine columns were added
+    afterwards -- itinerary, board, source, cheapest_any and the rest -- and
+    the list was never updated, so every round-trip through history.json
+    silently dropped them. Nothing errored; the detail just quietly went
+    missing, and the app would have shown an empty board for any reading it
+    reloaded rather than took. Deriving the names means it cannot drift again.
+    """
+    return [r[1] for r in conn.execute("PRAGMA table_info(observations)")
+            if r[1] != "id"]
 
 
 def load_into_memory():
@@ -36,21 +45,23 @@ def load_into_memory():
     if os.path.exists(HISTORY):
         with open(HISTORY) as fh:
             rows = json.load(fh)
+        cols = columns(conn)
         for r in rows:
             conn.execute(
-                f"INSERT INTO observations ({','.join(COLUMNS)}) "
-                f"VALUES ({','.join('?' * len(COLUMNS))})",
-                [r.get(c) for c in COLUMNS])
+                f"INSERT INTO observations ({','.join(cols)}) "
+                f"VALUES ({','.join('?' * len(cols))})",
+                [r.get(c) for c in cols])
         conn.commit()
     return conn
 
 
 def dump_history(conn):
+    cols = columns(conn)
     rows = conn.execute(
-        f"SELECT {','.join(COLUMNS)} FROM observations ORDER BY observed_at"
+        f"SELECT {','.join(cols)} FROM observations ORDER BY observed_at"
     ).fetchall()
-    with open(HISTORY, "w") as fh:
-        json.dump([dict(zip(COLUMNS, r)) for r in rows], fh, indent=1)
+    with open(HISTORY, "w", encoding="utf-8") as fh:
+        json.dump([dict(zip(cols, r)) for r in rows], fh, indent=1)
     return len(rows)
 
 
