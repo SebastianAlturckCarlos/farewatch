@@ -44,8 +44,17 @@ if hasattr(sys.stdout, "reconfigure"):
 
 try:
     from fast_flights import get_flights, create_filter, FlightQuery, Passengers
-except ImportError:
-    sys.exit("Missing dependency. Run:  pip install fast-flights")
+except ImportError as e:
+    # Don't flatten this to "run pip install". fast-flights pulls in primp,
+    # which ships per-platform binary wheels, and when one of those is missing
+    # or mismatched the failure surfaces here as an ImportError that has
+    # nothing to do with fast-flights being absent. Show what actually broke.
+    sys.exit(f"Cannot import fast_flights: {e}
+"
+             f"If the module is genuinely missing:  pip install fast-flights
+"
+             f"If it is installed, the binary dependency (primp) did not load "
+             f"on this platform.")
 
 # ----------------------------------------------------------------------------
 # CONFIG - edit this block, nothing else
