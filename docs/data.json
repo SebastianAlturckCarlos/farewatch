@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-24T18:40:24-05:00",
+ "generated_at": "2026-08-24T23:41:14+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -12,10 +12,14 @@
    "target": 2200,
    "deadline": "2027-03-01",
    "days_left": 189,
-   "n": 1,
+   "n": 2,
    "series": [
     {
      "t": "2026-08-24T18:40:24",
+     "p": 2179.0
+    },
+    {
+     "t": "2026-08-24T23:41:14",
      "p": 2179.0
     }
    ],
@@ -36,7 +40,7 @@
    "bucket_thin": false,
    "n_options": 2,
    "airline": "American",
-   "observed_at": "2026-08-24T18:40:24",
+   "observed_at": "2026-08-24T23:41:14",
    "estimate": false,
    "gateway": null,
    "stops": 1,
