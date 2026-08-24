@@ -45,7 +45,9 @@ jobs:
         run: |
           git config user.name  "farewatch-bot"
           git config user.email "actions@github.com"
-          git add docs/data.json docs/history.json docs/notified.json
+          # Stage the whole folder: notified.json only exists once email is
+          # configured, and naming a missing path makes git exit 128.
+          git add docs/
           if git diff --staged --quiet; then
             echo "no change"
           else
