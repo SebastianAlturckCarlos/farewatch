@@ -1,0 +1,225 @@
+/* Farewatch
+   Rule: colour means state. Orange = buy, teal = hold, nothing else is tinted.
+   Everything that isn't the verdict stays greyscale so the verdict can't be missed. */
+
+:root{
+  --ground:#161E28;
+  --card:#1F2A36;
+  --line:#33414F;
+  --ink:#E9EEF3;
+  --dim:#7E8E9E;
+  --signal:#FF7A3D;
+  --calm:#45C9AE;
+
+  --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+
+  --state:var(--calm);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;
+  padding:
+    max(18px,env(safe-area-inset-top)) 16px
+    calc(96px + env(safe-area-inset-bottom));
+  max-width:520px;margin-inline:auto;
+}
+
+.boot{color:var(--dim);font-size:14px;padding:48px 0;text-align:center}
+
+/* ---- ticket field labels: small, spaced, uppercase (ticket-stock vernacular) */
+.lbl{
+  font-family:var(--mono);
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--dim);
+}
+
+/* ---- route header ------------------------------------------------------- */
+.route{padding-bottom:14px}
+.route-code{
+  font-family:var(--mono);
+  font-size:26px;font-weight:600;letter-spacing:.06em;
+  display:flex;align-items:center;gap:10px;
+}
+.route-code .arrow{font-style:normal;color:var(--dim);font-size:19px}
+.route-meta{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:6px;font-size:11px;color:var(--dim);
+  font-family:var(--mono);letter-spacing:.05em;
+}
+.freshness{display:flex;align-items:center;gap:6px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--calm);display:block}
+.dot.stale{background:var(--dim)}
+
+/* ---- the coupon: signature element -------------------------------------- */
+/* Notches punched into both edges, the way a torn ticket stub reads. */
+.coupon{
+  position:relative;
+  background:var(--card);
+  border-radius:14px;
+  padding:26px 22px 22px;
+  --notch:13px;
+  -webkit-mask:
+    radial-gradient(var(--notch) at left 50%,#0000 98%,#000) left/51% 100% no-repeat,
+    radial-gradient(var(--notch) at right 50%,#0000 98%,#000) right/51% 100% no-repeat;
+          mask:
+    radial-gradient(var(--notch) at left 50%,#0000 98%,#000) left/51% 100% no-repeat,
+    radial-gradient(var(--notch) at right 50%,#0000 98%,#000) right/51% 100% no-repeat;
+}
+.coupon::after{
+  /* the perforation the notches imply */
+  content:"";position:absolute;left:22px;right:22px;top:50%;
+  border-top:1px dashed var(--line);opacity:.55;
+}
+
+.verdict{
+  font-family:var(--mono);
+  font-size:13px;font-weight:700;letter-spacing:.2em;
+  color:var(--state);
+}
+.fare{
+  font-family:var(--mono);
+  font-size:52px;font-weight:600;letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;
+  line-height:1.05;margin-top:8px;
+}
+.fare-sub{font-size:12px;color:var(--dim);margin-top:4px;font-family:var(--mono)}
+
+/* ---- position bar: the percentile made physical ------------------------- */
+.position{margin-top:30px}
+.position .lbl{display:block;margin-bottom:9px}
+.track{
+  position:relative;height:8px;border-radius:4px;
+  background:#0F161E;border:1px solid var(--line);
+}
+.fill{
+  position:absolute;inset:0 auto 0 0;border-radius:4px 0 0 4px;
+  background:var(--state);opacity:.22;width:0;
+  transition:width .7s cubic-bezier(.22,1,.36,1);
+}
+.marker{
+  position:absolute;top:50%;left:0;width:3px;height:20px;
+  border-radius:2px;background:var(--state);
+  transform:translate(-50%,-50%);
+  transition:left .7s cubic-bezier(.22,1,.36,1);
+}
+.notch{position:absolute;top:0;bottom:0;width:1px;background:var(--dim);opacity:.8}
+.notch span{
+  position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--dim);white-space:nowrap;
+}
+.track-ends{
+  display:flex;justify-content:space-between;margin-top:8px;
+  font-family:var(--mono);font-size:11px;color:var(--dim);
+  font-variant-numeric:tabular-nums;
+}
+
+/* ---- sparkline ---------------------------------------------------------- */
+.spark-wrap{margin-top:26px}
+.spark{width:100%;height:72px;display:block;overflow:visible}
+.spark .line{fill:none;stroke:var(--dim);stroke-width:1.5;
+  vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.spark .band{fill:var(--state);opacity:.10}
+.spark .trigger{stroke:var(--state);stroke-width:1;stroke-dasharray:3 3;
+  opacity:.7;vector-effect:non-scaling-stroke}
+.spark .head{fill:var(--state)}
+.spark-lbl{margin-top:7px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+
+/* ---- stat trio ---------------------------------------------------------- */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  margin-top:26px;background:var(--line);
+  border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.stat{background:var(--ground);padding:13px 12px;display:flex;
+  flex-direction:column;gap:6px}
+.stat .val{font-family:var(--mono);font-size:17px;
+  font-variant-numeric:tabular-nums}
+
+/* ---- detail rows -------------------------------------------------------- */
+.rows{list-style:none;margin-top:22px;border-top:1px solid var(--line)}
+.rows li{display:flex;justify-content:space-between;align-items:baseline;
+  padding:13px 2px;border-bottom:1px solid var(--line)}
+.rows .val{font-family:var(--mono);font-size:13px;
+  font-variant-numeric:tabular-nums}
+.rows .val.warn{color:var(--signal)}
+
+/* ---- reasons ------------------------------------------------------------ */
+.reasons{list-style:none;margin-top:20px}
+.reasons li{
+  font-size:13px;line-height:1.5;color:var(--dim);
+  padding-left:16px;position:relative;margin-bottom:7px;
+}
+.reasons li::before{
+  content:"";position:absolute;left:0;top:8px;
+  width:6px;height:1px;background:var(--state);
+}
+
+/* ---- action bar --------------------------------------------------------- */
+.bar{
+  position:fixed;left:0;right:0;bottom:0;
+  background:linear-gradient(to top,var(--ground) 72%,#161E2800);
+  padding:22px 16px calc(16px + env(safe-area-inset-bottom));
+  text-align:center;
+}
+#refresh{
+  width:100%;max-width:488px;
+  font-family:var(--mono);font-size:13px;letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--ink);background:var(--card);
+  border:1px solid var(--line);border-radius:10px;
+  padding:15px;cursor:pointer;
+  transition:border-color .15s,opacity .15s;
+}
+#refresh:hover:not(:disabled){border-color:var(--dim)}
+#refresh:disabled{opacity:.45;cursor:progress}
+#refresh:focus-visible{outline:2px solid var(--state);outline-offset:2px}
+#status{margin-top:9px;font-size:11px;color:var(--dim);
+  font-family:var(--mono);letter-spacing:.05em;min-height:14px}
+
+.trip + .trip{margin-top:40px;padding-top:32px;border-top:1px solid var(--line)}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+}
+
+/* ---- itinerary stub ------------------------------------------------------
+   Reads like the segment block on a boarding pass: mono, tight, one row per
+   leg, layovers indented between them so a bad connection is visible at a
+   glance rather than hidden inside a duration. */
+.itin{border-top:1px solid var(--line);margin-top:16px;padding-top:14px}
+.itin[hidden]{display:none}
+.itin-head{display:flex;justify-content:space-between;align-items:center}
+.badge{
+  font-family:var(--mono);font-size:9px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ground);background:var(--dim);
+  padding:2px 6px;border-radius:3px;
+}
+.badge[hidden]{display:none}
+.itin-line{
+  font-family:var(--mono);font-size:12px;color:var(--ink);
+  margin-top:8px;line-height:1.5;
+}
+.segs{list-style:none;margin-top:10px}
+.seg{
+  display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:baseline;
+  font-family:var(--mono);font-size:11px;padding:5px 0;
+  border-bottom:1px dotted var(--line);
+}
+.seg .hop{font-weight:600;letter-spacing:.04em}
+.seg .hop i{font-style:normal;color:var(--dim);margin:0 3px}
+.seg .when{color:var(--dim)}
+.seg .plane{color:var(--dim);font-size:10px;text-align:right}
+.lay{
+  font-family:var(--mono);font-size:10px;color:var(--dim);
+  display:flex;justify-content:space-between;
+  padding:4px 0 4px 14px;letter-spacing:.06em;text-transform:uppercase;
+}
+.itin-note{font-size:11px;color:var(--dim);margin-top:10px;line-height:1.5}
+.itin-note.warn{color:var(--signal)}
+.itin-note:empty{display:none}

@@ -1,0 +1,47 @@
+name: Track fares
+
+on:
+  schedule:
+    # Twice daily (UTC). 13:00 = ~8am Central, 01:00 = ~8pm Central.
+    - cron: "0 13 * * *"
+    - cron: "0 1 * * *"
+  workflow_dispatch:        # lets you run it on demand from the Actions tab
+
+permissions:
+  contents: write           # needed to commit the new reading back
+
+concurrency:
+  group: track-fares
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: python -m pip install --quiet fast-flights
+
+      - name: Take a reading
+        env:
+          FAREWATCH_TO:        ${{ secrets.FAREWATCH_TO }}
+          FAREWATCH_SMTP_USER: ${{ secrets.FAREWATCH_SMTP_USER }}
+          FAREWATCH_SMTP_PASS: ${{ secrets.FAREWATCH_SMTP_PASS }}
+        run: python collect.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "farewatch-bot"
+          git config user.email "actions@github.com"
+          git add docs/data.json docs/history.json docs/notified.json
+          if git diff --staged --quiet; then
+            echo "no change"
+          else
+            git commit -m "fares: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
