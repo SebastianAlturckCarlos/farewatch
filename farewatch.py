@@ -49,12 +49,10 @@ except ImportError as e:
     # which ships per-platform binary wheels, and when one of those is missing
     # or mismatched the failure surfaces here as an ImportError that has
     # nothing to do with fast-flights being absent. Show what actually broke.
-    sys.exit(f"Cannot import fast_flights: {e}
-"
-             f"If the module is genuinely missing:  pip install fast-flights
-"
-             f"If it is installed, the binary dependency (primp) did not load "
-             f"on this platform.")
+    sys.exit(f"Cannot import fast_flights: {e}\n"
+             f"If the module is genuinely missing:  pip install fast-flights\n"
+             f"If it is installed, a dependency it does not declare is absent "
+             f"(typing_extensions) or its binary wheel (primp) did not load.")
 
 # ----------------------------------------------------------------------------
 # CONFIG - edit this block, nothing else
