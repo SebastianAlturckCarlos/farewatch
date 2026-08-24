@@ -16,5 +16,23 @@
   "best_duration": "7h 58m",
   "daylight_ok": 1,
   "raw": "{\"tier\": \"google-flights\", \"note\": \"$1,587 exists but breaks your rules (extra stop or next-day arrival)\"}"
+ },
+ {
+  "observed_at": "2026-08-24T23:10:06",
+  "trip": "St Lucia",
+  "origin": "MCI",
+  "dest": "UVF",
+  "depart": "2027-06-14",
+  "ret": "2027-06-19",
+  "adults": 2,
+  "total_price": 2179.0,
+  "per_person": 1089.5,
+  "solo_price": 1090.0,
+  "bucket_gap": -0.045871559633027525,
+  "n_options": 2,
+  "best_airline": "American",
+  "best_duration": "7h 58m",
+  "daylight_ok": 1,
+  "raw": "{\"tier\": \"google-flights\", \"note\": \"$1,587 exists but breaks your rules (extra stop or next-day arrival)\"}"
  }
 ]
