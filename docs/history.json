@@ -16,5 +16,23 @@
   "best_duration": null,
   "daylight_ok": 1,
   "raw": "{\"tier\": \"via-MIA\", \"note\": \"no same-day connection (needs overnight at gateway)\"}"
+ },
+ {
+  "observed_at": "2026-08-24T22:44:23",
+  "trip": "St Lucia",
+  "origin": "MCI",
+  "dest": "UVF",
+  "depart": "2027-06-14",
+  "ret": "2027-06-19",
+  "adults": 2,
+  "total_price": 2711.0,
+  "per_person": 1355.5,
+  "solo_price": 1304.0,
+  "bucket_gap": 3.9493865030674846,
+  "n_options": 1,
+  "best_airline": "via MIA \u00b7 American + American",
+  "best_duration": null,
+  "daylight_ok": 1,
+  "raw": "{\"tier\": \"via-MIA\", \"note\": \"no same-day connection (needs overnight at gateway)\"}"
  }
 ]

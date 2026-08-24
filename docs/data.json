@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-24T17:32:08-05:00",
+ "generated_at": "2026-08-24T22:44:23+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -12,10 +12,14 @@
    "target": 2200,
    "deadline": "2027-03-01",
    "days_left": 189,
-   "n": 1,
+   "n": 2,
    "series": [
     {
      "t": "2026-08-24T17:32:08",
+     "p": 2711.0
+    },
+    {
+     "t": "2026-08-24T22:44:23",
      "p": 2711.0
     }
    ],
@@ -23,7 +27,7 @@
    "reasons": [
     "$2,711 is above your $2,200 target",
     "189 days until 2027-03-01",
-    "Only 1 observations - needs ~3 weeks to mean much",
+    "Only 2 observations - needs ~3 weeks to mean much",
     "Estimated: MCI\u2192MIA\u2192UVF priced separately and summed \u2014 no through-fare is filed yet"
    ],
    "current": 2711.0,
@@ -38,7 +42,7 @@
    "bucket_thin": false,
    "n_options": 1,
    "airline": "via MIA \u00b7 American + American",
-   "observed_at": "2026-08-24T17:32:08",
+   "observed_at": "2026-08-24T22:44:23",
    "estimate": true,
    "gateway": "MIA",
    "stops": 1,
