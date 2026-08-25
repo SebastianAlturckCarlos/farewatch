@@ -256,6 +256,11 @@ body{
 }
 .flight.tracked .price{color:var(--state)}
 
+/* Legal and sellable -- the airline owns the misconnect -- but under an hour
+   at a big hub is worth seeing before you book, not after. */
+.flight .why.tight{color:var(--dim);opacity:.85}
+.flight.tracked .why.tight{color:var(--state);opacity:.9}
+
 .board-note{
   font-size:11px;color:var(--dim);margin-top:12px;line-height:1.55;
 }

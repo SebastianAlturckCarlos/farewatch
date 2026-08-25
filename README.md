@@ -51,7 +51,13 @@ tinted, so you can't misread it in a hurry.
 cheapest first, so the headline number is something you can check rather than
 something you have to trust. The row being recorded is tinted and tagged
 *tracking*. Rows that break your rules stay visible but recede, each labelled
-with what disqualifies it — `2 stops`, `lands next day`, `lands 19:40`.
+with what disqualifies it — `2 stops`, `lands next day`, `12h layover`.
+
+Every row carries its **longest layover** in brackets, because that is the
+difference between a connection and a day spent in an airport. Rows with a
+layover under an hour are marked `tight connection`: legal, sellable, and the
+airline owns the misconnect — but worth seeing before you book, not after. It
+is a flag, never a disqualifier; that call is yours.
 
 Reading it takes about two seconds, and on this route it says something the
 headline fare can't: every cheap option lands the next day. $1,587 is real, and
@@ -71,9 +77,9 @@ separately: a 2-pax search needs both seats in the same bucket, so when
 2×(1-pax) comes in well under the 2-pax fare, the cheap bucket is nearly empty.
 Marked "Thin" past 15%. This moves *before* the price does.
 
-**Fit your rules** counts the board rows that survive `max_stops`,
-`same_day_arrival` and `latest_arrival_hour`. It is 2 of 8 today. When it drops
-to one, seats are going regardless of what the headline fare does.
+**Fit your rules** counts the board rows that survive all four constraints. It
+is 2 of 8 today. When it drops to one, seats are going regardless of what the
+headline fare does.
 
 ---
 
@@ -195,9 +201,17 @@ Ignav and SerpApi are paid, gated behind a business account, or both.
 
 ### Cheapest is not what gets tracked
 
-The fare recorded is the cheapest itinerary that **meets your rules** —
-`max_stops`, `same_day_arrival`, and `latest_arrival_hour`. Right now that is
-$2,179: one stop at MIA, 05:00 → 13:58 the same day, 7h 58m.
+The fare recorded is the cheapest itinerary that **meets your rules**:
+
+| Rule | Setting | Rejects |
+|---|---|---|
+| `max_stops` | 1 | 2-stop routings |
+| `same_day_arrival` | true | anything landing on the 15th |
+| `latest_arrival_hour` | 18 | landings past 18:00 — no daylight transfer to La Toc |
+| `max_layover_minutes` | 240 | 4h+ on the ground; that is not a connection |
+
+Right now that is $2,179: one stop at MIA, 05:00 → 13:58 the same day, 7h 58m,
+55 minutes on the ground. It is the cheapest fare that clears all four.
 
 The board's cheapest is $1,587, and the app says so underneath. It is $592 less
 because it takes two stops and lands at 14:10 **the next day** — which costs a

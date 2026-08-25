@@ -95,10 +95,14 @@ function flightRow(b) {
   const via = b.stops === 0
     ? "nonstop"
     : `${b.stops} stop${b.stops > 1 ? "s" : ""} ${(b.via || []).join(", ")}`;
-  // A single layover's length is the difference between a tolerable connection
-  // and a day at an airport, so it earns the space.
-  const lay = (b.layovers || []).length === 1 && b.layovers[0].label
-    ? ` (${b.layovers[0].label})` : "";
+  // A layover's length is the difference between a tolerable connection and a
+  // day at an airport, so it earns the space. With two stops, the longer one
+  // is the one that decides how the day feels.
+  const mins = (b.layovers || []).map(l => l.minutes).filter(Boolean);
+  const worst = mins.length
+    ? (b.layovers.find(l => l.minutes === Math.max(...mins)) || {}).label
+    : null;
+  const lay = worst ? ` (${worst})` : "";
 
   const detail = [via + lay, b.total_label, b.airline].filter(Boolean).join(" · ");
 
@@ -109,6 +113,7 @@ function flightRow(b) {
         nextDay ? '<i class="plus">+1</i>' : ""}</span>
       <span class="detail">${detail}</span>
       ${b.why ? `<span class="why">${b.why}</span>` : ""}
+      ${b.tight && !b.why ? '<span class="why tight">tight connection</span>' : ""}
     </li>`;
 }
 
@@ -132,8 +137,8 @@ function renderBoard(f, t) {
     f.boardnote.classList.add("warn");
   } else {
     f.boardnote.textContent =
-      "Dimmed flights break your rules: more stops than you want, or a "
-      + "next-day landing that costs a night of the trip.";
+      "Dimmed flights break your rules: more stops than you want, a layover "
+      + "over 4 hours, or a next-day landing that costs a night of the trip.";
   }
 }
 

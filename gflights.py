@@ -36,6 +36,7 @@ depend on them.
 
 import re
 import sys
+import time
 from datetime import datetime
 
 BASE = "https://www.google.com/travel/flights"
@@ -203,6 +204,8 @@ def _attempt(url, timeout_ms, verbose):
                 viewport={"width": 1280, "height": 900},
             )
             page.goto(url, wait_until="domcontentloaded", timeout=timeout_ms)
+            # Fresh context each attempt, so a poisoned session is not retried
+            # into the same wall.
             # state="attached", not the default "visible": the first matching
             # node is an offscreen price chip, so waiting for visibility times
             # out on a page that has in fact already rendered.
@@ -218,8 +221,8 @@ def _attempt(url, timeout_ms, verbose):
             browser.close()
 
 
-def search(origin, dest, depart, ret, adults, timeout_ms=45000, verbose=True,
-           attempts=3):
+def search(origin, dest, depart, ret, adults, timeout_ms=60000, verbose=True,
+           attempts=3, backoff_seconds=10):
     """Return every priced itinerary Google shows, cheapest first.
 
     Prices are the round-trip total for all passengers -- Google's board says
@@ -256,9 +259,16 @@ def search(origin, dest, depart, ret, adults, timeout_ms=45000, verbose=True,
             labels = []
         if any(l and "round trip total" in l for l in labels):
             break
-        if i < attempts and verbose:
-            print(f"    [gflights] attempt {i}/{attempts} returned nothing, "
-                  f"retrying")
+        if i < attempts:
+            # Back off between tries. Hammering it immediately is exactly what
+            # makes Google slower to answer, and three failures five seconds
+            # apart is really one failure -- the point of a retry is to land on
+            # the far side of whatever was throttling us.
+            wait = backoff_seconds * i
+            if verbose:
+                print(f"    [gflights] attempt {i}/{attempts} returned nothing, "
+                      f"retrying in {wait}s")
+            time.sleep(wait)
     else:
         if verbose:
             print("    [gflights] no results after "

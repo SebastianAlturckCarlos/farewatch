@@ -73,6 +73,8 @@ TRIPS = [
         "max_stops": 1,
         "latest_arrival_hour": 18, # daylight arrival; 90 min transfer to La Toc
         "same_day_arrival": True,  # a next-day landing costs a night of the trip
+        "max_layover_minutes": 240,# 4h; past that you are not connecting, you
+                                   # are spending the day in an airport
         "use_browser": True,       # read real through-fares via gflights.py
         # Google will not build MCI-UVF through-itineraries this far out -- not
         # for June 2027, and not for any 2027 date we probed. When no
@@ -95,6 +97,7 @@ TRIPS = [
         "max_stops": 1,
         "latest_arrival_hour": 20,
         "same_day_arrival": True,
+        "max_layover_minutes": 240,
         "use_browser": True,
         "gateways": ["MIA", "FLL", "ATL", "CLT"],
         "enabled": False,          # flip to True if you book flights separately
@@ -106,8 +109,15 @@ TRIPS = [
 BUCKET_GAP_ALERT_PCT = 15.0
 
 # Shortest connection we would actually book at a US gateway, domestic arrival
-# to international departure, bags recheck included.
+# to international departure, bags recheck included. Only applies to the
+# leg-summed estimate, where the two halves are separate tickets.
 MIN_CONNECT_MIN = 90
+
+# On a single through-ticket bags are checked through and the airline owns the
+# misconnect, so a short layover is legal and sellable -- but under an hour at
+# a big hub is still worth knowing about before you book. Flagged, never
+# disqualified: that call is yours, not the script's.
+TIGHT_CONNECT_MIN = 60
 
 # ----------------------------------------------------------------------------
 
@@ -448,7 +458,15 @@ def qualifies(itin, trip):
     if arr and trip.get("latest_arrival_hour") is not None:
         if datetime.fromisoformat(arr).hour >= trip["latest_arrival_hour"]:
             return False
+    cap = trip.get("max_layover_minutes")
+    if cap is not None and _longest_layover(itin) > cap:
+        return False
     return True
+
+
+def _longest_layover(itin):
+    mins = [l.get("minutes") or 0 for l in itin.get("layovers") or []]
+    return max(mins) if mins else 0
 
 
 def why_not(itin, trip):
@@ -467,7 +485,16 @@ def why_not(itin, trip):
     elif arr and trip.get("latest_arrival_hour") is not None:
         if datetime.fromisoformat(arr).hour >= trip["latest_arrival_hour"]:
             reasons.append(f"lands {arr[11:16]}")
+    cap = trip.get("max_layover_minutes")
+    longest = _longest_layover(itin)
+    if cap is not None and longest > cap:
+        reasons.append(f"{longest // 60}h layover")
     return ", ".join(reasons) or None
+
+
+def _shortest_layover(itin):
+    mins = [l.get("minutes") for l in itin.get("layovers") or [] if l.get("minutes")]
+    return min(mins) if mins else 0
 
 
 def board(rows, trip, pick, limit=12):
@@ -492,6 +519,9 @@ def board(rows, trip, pick, limit=12):
             "airline": r["airline"],
             "fits": qualifies(r, trip),
             "why": why_not(r, trip),
+            "longest_layover": _longest_layover(r),
+            "tight": bool(_shortest_layover(r)
+                          and _shortest_layover(r) < TIGHT_CONNECT_MIN),
             "tracked": (r["price"] == pick["price"]
                         and r["depart_at"] == pick["depart_at"]
                         and r["stops"] == pick["stops"]),
@@ -525,14 +555,18 @@ def fetch_browser(trip, adults, verbose=True):
         note = ("nothing meets your rules right now; showing the cheapest "
                 "itinerary on the board")
     elif pick["price"] > cheapest:
-        note = (f"${cheapest:,.0f} exists but breaks your rules "
-                f"(extra stop or next-day arrival)")
+        cheap_row = next((r for r in rows if r["price"] == cheapest), None)
+        why = why_not(cheap_row, trip) if cheap_row else None
+        note = (f"${cheapest:,.0f} exists but breaks your rules"
+                + (f" ({why})" if why else ""))
 
     if verbose:
+        cap = trip.get("max_layover_minutes")
         print(f"  {len(rows)} itineraries on the board, "
               f"{len(good)} meet your rules "
               f"(<= {trip.get('max_stops')} stop, same-day, "
-              f"arrives before {trip.get('latest_arrival_hour')}:00)")
+              f"arrives before {trip.get('latest_arrival_hour')}:00"
+              + (f", layover under {cap // 60}h" if cap else "") + ")")
 
     itin = dict(pick)
     itin.pop("price", None)
