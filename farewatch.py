@@ -681,7 +681,7 @@ def record(conn, trip):
             source, cheapest_any, board)
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     """, (
-        datetime.now().isoformat(timespec="seconds"), trip["name"],
+        datetime.now().astimezone().isoformat(timespec="seconds"), trip["name"],
         trip["origin"], trip["dest"], trip["depart"], trip["return"],
         adults, total, total / adults, solo, gap, r["n_options"],
         airline, itin.get("total_label"), daylight,
@@ -749,6 +749,21 @@ def record(conn, trip):
     return total
 
 
+def _when(ts):
+    """Parse a stored timestamp as an aware datetime.
+
+    Readings used to be written without a UTC offset. GitHub's runners are on
+    UTC and this machine is on Central, so the committed series mixed two
+    timezones with nothing marking which was which -- and the app, parsing a
+    bare ISO string as local time, read every cloud reading as five hours
+    newer than it was. That made "just now" permanent and the staleness dot
+    unreachable. New rows carry an offset; older bare ones are assumed local,
+    which is what they were on the machine that wrote them.
+    """
+    dt = datetime.fromisoformat(ts)
+    return dt if dt.tzinfo else dt.astimezone()
+
+
 def _json(blob):
     try:
         return json.loads(blob) if blob else None
@@ -788,7 +803,7 @@ def stats(conn, trip):
 
     prices = [r[1] for r in rows]
     latest = prices[-1]
-    first_day = datetime.fromisoformat(rows[0][0]).date()
+    first_day = _when(rows[0][0]).date()
     last = rows[-1]
     last_gap, last_opts = last[2], last[3]
     is_estimate = bool(last[6])
@@ -824,8 +839,8 @@ def stats(conn, trip):
     })
 
     for window in (7, 30):
-        cutoff = datetime.now() - timedelta(days=window)
-        past = [r[1] for r in rows if datetime.fromisoformat(r[0]) < cutoff]
+        cutoff = datetime.now().astimezone() - timedelta(days=window)
+        past = [r[1] for r in rows if _when(r[0]) < cutoff]
         base[f"change_{window}d"] = (
             (latest - past[-1]) / past[-1] * 100.0 if past else None
         )
@@ -897,7 +912,7 @@ def chart(conn):
         """, (trip["name"],)).fetchall()
         if len(rows) < 2:
             continue
-        xs = [datetime.fromisoformat(r[0]) for r in rows]
+        xs = [_when(r[0]) for r in rows]
         ys = [r[1] for r in rows]
         ax.plot(xs, ys, marker="o", ms=3, label=trip["name"])
         ax.axhline(trip["target_price"], ls="--", lw=1, alpha=.5)
