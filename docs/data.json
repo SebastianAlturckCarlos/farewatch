@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-27T10:47:41+00:00",
+ "generated_at": "2026-08-27T22:54:13+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -12,7 +12,7 @@
    "target": 2200,
    "deadline": "2027-03-01",
    "days_left": 186,
-   "n": 14,
+   "n": 15,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -69,6 +69,10 @@
     {
      "t": "2026-08-27T10:47:41+00:00",
      "p": 2179.0
+    },
+    {
+     "t": "2026-08-27T22:54:13+00:00",
+     "p": 1927.0
     }
    ],
    "verdict": "BUY",
@@ -76,19 +80,19 @@
     "At or below your $2,200 target",
     "Only 2 viable itineraries left"
    ],
-   "current": 2179.0,
-   "per_person": 1089.5,
-   "low": 2179.0,
+   "current": 1927.0,
+   "per_person": 963.5,
+   "low": 1927.0,
    "high": 2179.0,
    "median": 2179.0,
    "percentile": 0.0,
    "vs_low_pct": 0.0,
    "days_tracked": 3,
-   "bucket_gap": -0.045871559633027525,
+   "bucket_gap": -0.05186721991701245,
    "bucket_thin": false,
    "n_options": 2,
    "airline": "American",
-   "observed_at": "2026-08-27T10:47:41+00:00",
+   "observed_at": "2026-08-27T22:54:13+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -219,6 +223,30 @@
      "tracked": false
     },
     {
+     "price": 1927.0,
+     "stops": 1,
+     "via": [
+      "MIA"
+     ],
+     "layovers": [
+      {
+       "at": "MIA",
+       "minutes": 55,
+       "label": "55m"
+      }
+     ],
+     "depart_at": "2027-06-14T05:00",
+     "arrive_at": "2027-06-14T13:58",
+     "total_label": "7h 58m",
+     "total_minutes": 478,
+     "airline": "American",
+     "fits": true,
+     "why": null,
+     "longest_layover": 55,
+     "tight": true,
+     "tracked": true
+    },
+    {
      "price": 1969.0,
      "stops": 1,
      "via": [
@@ -241,30 +269,6 @@
      "longest_layover": 1114,
      "tight": false,
      "tracked": false
-    },
-    {
-     "price": 2179.0,
-     "stops": 1,
-     "via": [
-      "MIA"
-     ],
-     "layovers": [
-      {
-       "at": "MIA",
-       "minutes": 55,
-       "label": "55m"
-      }
-     ],
-     "depart_at": "2027-06-14T05:00",
-     "arrive_at": "2027-06-14T13:58",
-     "total_label": "7h 58m",
-     "total_minutes": 478,
-     "airline": "American",
-     "fits": true,
-     "why": null,
-     "longest_layover": 55,
-     "tight": true,
-     "tracked": true
     },
     {
      "price": 2267.0,
@@ -321,7 +325,7 @@
      "tracked": false
     },
     {
-     "price": 3252.0,
+     "price": 3262.0,
      "stops": 1,
      "via": [
       "ATL"
