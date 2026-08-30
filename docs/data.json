@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-30T06:08:09+00:00",
+ "generated_at": "2026-08-30T17:15:56+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -12,7 +12,7 @@
    "target": 2200,
    "deadline": "2027-03-01",
    "days_left": 183,
-   "n": 20,
+   "n": 21,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -93,6 +93,10 @@
     {
      "t": "2026-08-30T06:08:09+00:00",
      "p": 1927.0
+    },
+    {
+     "t": "2026-08-30T17:15:56+00:00",
+     "p": 1927.0
     }
    ],
    "verdict": "BUY",
@@ -112,7 +116,7 @@
    "bucket_thin": false,
    "n_options": 2,
    "airline": "American",
-   "observed_at": "2026-08-30T06:08:09+00:00",
+   "observed_at": "2026-08-30T17:15:56+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
