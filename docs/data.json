@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-03T16:59:09+00:00",
+ "generated_at": "2026-09-04T05:16:52+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -11,8 +11,8 @@
    "adults": 2,
    "target": 2200,
    "deadline": "2027-03-01",
-   "days_left": 179,
-   "n": 29,
+   "days_left": 178,
+   "n": 30,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -129,6 +129,10 @@
     {
      "t": "2026-09-03T16:59:09+00:00",
      "p": 1927.0
+    },
+    {
+     "t": "2026-09-04T05:16:52+00:00",
+     "p": 2097.0
     }
    ],
    "verdict": "BUY",
@@ -136,19 +140,19 @@
     "At or below your $2,200 target",
     "Only 2 viable itineraries left"
    ],
-   "current": 1927.0,
-   "per_person": 963.5,
+   "current": 2097.0,
+   "per_person": 1048.5,
    "low": 1927.0,
    "high": 2179.0,
-   "median": 1927.0,
-   "percentile": 0.0,
-   "vs_low_pct": 0.0,
-   "days_tracked": 10,
-   "bucket_gap": -0.05186721991701245,
+   "median": 2012.0,
+   "percentile": 50.0,
+   "vs_low_pct": 8.822003113648158,
+   "days_tracked": 11,
+   "bucket_gap": -0.047664442326024785,
    "bucket_thin": false,
    "n_options": 2,
    "airline": "American",
-   "observed_at": "2026-09-03T16:59:09+00:00",
+   "observed_at": "2026-09-04T05:16:52+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -192,40 +196,10 @@
    },
    "itinerary_line": "American \u00b7 1 stop MIA \u00b7 05:00 \u2192 13:58 \u00b7 7h 58m",
    "source": "google-flights",
-   "cheapest_any": 1587.0,
+   "cheapest_any": 1589.0,
    "board": [
     {
-     "price": 1587.0,
-     "stops": 2,
-     "via": [
-      "CLT",
-      "MIA"
-     ],
-     "layovers": [
-      {
-       "at": "CLT",
-       "minutes": 501,
-       "label": "8h 21m"
-      },
-      {
-       "at": "MIA",
-       "minutes": 172,
-       "label": "2h 52m"
-      }
-     ],
-     "depart_at": "2027-06-14T17:20",
-     "arrive_at": "2027-06-15T13:58",
-     "total_label": "19h 38m",
-     "total_minutes": 1178,
-     "airline": "American",
-     "fits": false,
-     "why": "2 stops, lands next day, 8h layover",
-     "longest_layover": 501,
-     "tight": false,
-     "tracked": false
-    },
-    {
-     "price": 1587.0,
+     "price": 1589.0,
      "stops": 2,
      "via": [
       "ORD",
@@ -255,7 +229,37 @@
      "tracked": false
     },
     {
-     "price": 1610.0,
+     "price": 1589.0,
+     "stops": 2,
+     "via": [
+      "CLT",
+      "MIA"
+     ],
+     "layovers": [
+      {
+       "at": "CLT",
+       "minutes": 501,
+       "label": "8h 21m"
+      },
+      {
+       "at": "MIA",
+       "minutes": 172,
+       "label": "2h 52m"
+      }
+     ],
+     "depart_at": "2027-06-14T17:20",
+     "arrive_at": "2027-06-15T13:58",
+     "total_label": "19h 38m",
+     "total_minutes": 1178,
+     "airline": "American",
+     "fits": false,
+     "why": "2 stops, lands next day, 8h layover",
+     "longest_layover": 501,
+     "tight": false,
+     "tracked": false
+    },
+    {
+     "price": 1721.0,
      "stops": 1,
      "via": [
       "CLT"
@@ -279,7 +283,7 @@
      "tracked": false
     },
     {
-     "price": 1927.0,
+     "price": 2097.0,
      "stops": 1,
      "via": [
       "MIA"
@@ -303,7 +307,7 @@
      "tracked": true
     },
     {
-     "price": 1927.0,
+     "price": 2097.0,
      "stops": 2,
      "via": [
       "Dallas Fort Worth",
@@ -333,7 +337,7 @@
      "tracked": false
     },
     {
-     "price": 1969.0,
+     "price": 2142.0,
      "stops": 1,
      "via": [
       "MIA"
@@ -357,7 +361,7 @@
      "tracked": false
     },
     {
-     "price": 2007.0,
+     "price": 2301.0,
      "stops": 2,
      "via": [
       "ORD",
@@ -433,39 +437,9 @@
      "longest_layover": 52,
      "tight": true,
      "tracked": false
-    },
-    {
-     "price": 6745.0,
-     "stops": 2,
-     "via": [
-      "Dallas Fort Worth",
-      "MIA"
-     ],
-     "layovers": [
-      {
-       "at": "Dallas Fort Worth",
-       "minutes": 544,
-       "label": "9h 04m"
-      },
-      {
-       "at": "MIA",
-       "minutes": 77,
-       "label": "1h 17m"
-      }
-     ],
-     "depart_at": "2027-06-14T18:03",
-     "arrive_at": "2027-06-15T13:58",
-     "total_label": "18h 55m",
-     "total_minutes": 1135,
-     "airline": "American",
-     "fits": false,
-     "why": "2 stops, lands next day, 9h layover",
-     "longest_layover": 544,
-     "tight": false,
-     "tracked": false
     }
    ],
-   "change_7d": -11.56493804497476,
+   "change_7d": 8.822003113648158,
    "change_30d": null
   }
  ]
