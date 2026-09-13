@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-13T05:31:51+00:00",
+ "generated_at": "2026-09-13T16:54:14+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -12,7 +12,7 @@
    "target": 2200,
    "deadline": "2027-03-01",
    "days_left": 169,
-   "n": 48,
+   "n": 49,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -205,6 +205,10 @@
     {
      "t": "2026-09-13T05:31:51+00:00",
      "p": 2137.0
+    },
+    {
+     "t": "2026-09-13T16:54:14+00:00",
+     "p": 2137.0
     }
    ],
    "verdict": "BUY",
@@ -217,14 +221,14 @@
    "low": 1927.0,
    "high": 2301.0,
    "median": 2137.0,
-   "percentile": 45.833333333333336,
+   "percentile": 44.89795918367347,
    "vs_low_pct": 10.897768552153607,
    "days_tracked": 20,
    "bucket_gap": -0.04677268475210477,
    "bucket_thin": false,
    "n_options": 2,
    "airline": "American",
-   "observed_at": "2026-09-13T05:31:51+00:00",
+   "observed_at": "2026-09-13T16:54:14+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -310,36 +314,6 @@
      "layovers": [
       {
        "at": "Dallas Fort Worth",
-       "minutes": 502,
-       "label": "8h 22m"
-      },
-      {
-       "at": "MIA",
-       "minutes": 81,
-       "label": "1h 21m"
-      }
-     ],
-     "depart_at": "2027-06-14T19:46",
-     "arrive_at": "2027-06-15T15:04",
-     "total_label": "18h 18m",
-     "total_minutes": 1098,
-     "airline": "American",
-     "fits": false,
-     "why": "2 stops, lands next day, 8h layover",
-     "longest_layover": 502,
-     "tight": false,
-     "tracked": false
-    },
-    {
-     "price": 1737.0,
-     "stops": 2,
-     "via": [
-      "Dallas Fort Worth",
-      "MIA"
-     ],
-     "layovers": [
-      {
-       "at": "Dallas Fort Worth",
        "minutes": 544,
        "label": "9h 04m"
       },
@@ -357,6 +331,36 @@
      "fits": false,
      "why": "2 stops, lands next day, 9h layover",
      "longest_layover": 544,
+     "tight": false,
+     "tracked": false
+    },
+    {
+     "price": 1671.0,
+     "stops": 2,
+     "via": [
+      "Dallas Fort Worth",
+      "MIA"
+     ],
+     "layovers": [
+      {
+       "at": "Dallas Fort Worth",
+       "minutes": 502,
+       "label": "8h 22m"
+      },
+      {
+       "at": "MIA",
+       "minutes": 81,
+       "label": "1h 21m"
+      }
+     ],
+     "depart_at": "2027-06-14T19:46",
+     "arrive_at": "2027-06-15T15:04",
+     "total_label": "18h 18m",
+     "total_minutes": 1098,
+     "airline": "American",
+     "fits": false,
+     "why": "2 stops, lands next day, 8h layover",
+     "longest_layover": 502,
      "tight": false,
      "tracked": false
     },
@@ -469,7 +473,7 @@
      "tracked": false
     },
     {
-     "price": 2202.0,
+     "price": 2330.0,
      "stops": 1,
      "via": [
       "ATL"
