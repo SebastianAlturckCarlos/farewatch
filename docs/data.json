@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-20T05:34:36+00:00",
+ "generated_at": "2026-09-20T16:43:37+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -12,7 +12,7 @@
    "target": 2200,
    "deadline": "2027-03-01",
    "days_left": 162,
-   "n": 62,
+   "n": 63,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -261,6 +261,10 @@
     {
      "t": "2026-09-20T05:34:36+00:00",
      "p": 2332.0
+    },
+    {
+     "t": "2026-09-20T16:43:37+00:00",
+     "p": 2332.0
     }
    ],
    "verdict": "BUY",
@@ -272,14 +276,14 @@
    "low": 1927.0,
    "high": 2332.0,
    "median": 2179.0,
-   "percentile": 80.64516129032258,
+   "percentile": 79.36507936507937,
    "vs_low_pct": 21.01712506486767,
    "days_tracked": 27,
    "bucket_gap": 0.0,
    "bucket_thin": false,
    "n_options": 2,
    "airline": "American",
-   "observed_at": "2026-09-20T05:34:36+00:00",
+   "observed_at": "2026-09-20T16:43:37+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -470,7 +474,7 @@
      "tracked": false
     },
     {
-     "price": 2202.0,
+     "price": 2330.0,
      "stops": 1,
      "via": [
       "ATL"
@@ -516,6 +520,30 @@
      "longest_layover": 55,
      "tight": true,
      "tracked": true
+    },
+    {
+     "price": 2407.0,
+     "stops": 1,
+     "via": [
+      "MIA"
+     ],
+     "layovers": [
+      {
+       "at": "MIA",
+       "minutes": 1114,
+       "label": "18h 34m"
+      }
+     ],
+     "depart_at": "2027-06-14T11:23",
+     "arrive_at": "2027-06-15T13:58",
+     "total_label": "25h 35m",
+     "total_minutes": 1535,
+     "airline": "American",
+     "fits": false,
+     "why": "lands next day, 18h layover",
+     "longest_layover": 1114,
+     "tight": false,
+     "tracked": false
     },
     {
      "price": 3028.0,
