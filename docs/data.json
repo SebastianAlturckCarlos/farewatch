@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-29T06:26:18+00:00",
+ "generated_at": "2026-09-29T18:32:17+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -12,7 +12,7 @@
    "target": 2200,
    "deadline": "2027-03-01",
    "days_left": 153,
-   "n": 80,
+   "n": 81,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -333,25 +333,29 @@
     {
      "t": "2026-09-29T06:26:18+00:00",
      "p": 2332.0
+    },
+    {
+     "t": "2026-09-29T18:32:17+00:00",
+     "p": 2341.0
     }
    ],
    "verdict": "BUY",
    "reasons": [
     "Only 2 viable itineraries left"
    ],
-   "current": 2332.0,
-   "per_person": 1166.0,
+   "current": 2341.0,
+   "per_person": 1170.5,
    "low": 1927.0,
-   "high": 2332.0,
+   "high": 2341.0,
    "median": 2179.0,
-   "percentile": 62.5,
-   "vs_low_pct": 21.01712506486767,
+   "percentile": 98.76543209876543,
+   "vs_low_pct": 21.484172288531393,
    "days_tracked": 36,
-   "bucket_gap": 0.0,
+   "bucket_gap": -0.04269854824935952,
    "bucket_thin": false,
    "n_options": 2,
    "airline": "American",
-   "observed_at": "2026-09-29T06:26:18+00:00",
+   "observed_at": "2026-09-29T18:32:17+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -488,7 +492,7 @@
      "tracked": false
     },
     {
-     "price": 1957.0,
+     "price": 1966.0,
      "stops": 1,
      "via": [
       "CLT"
@@ -512,7 +516,7 @@
      "tracked": false
     },
     {
-     "price": 2157.0,
+     "price": 2325.0,
      "stops": 2,
      "via": [
       "ORD",
@@ -566,7 +570,7 @@
      "tracked": false
     },
     {
-     "price": 2332.0,
+     "price": 2341.0,
      "stops": 1,
      "via": [
       "MIA"
@@ -614,8 +618,8 @@
      "tracked": false
     }
    ],
-   "change_7d": 0.0,
-   "change_30d": 21.01712506486767
+   "change_7d": 0.38593481989708406,
+   "change_30d": 21.484172288531393
   }
  ]
 }
