@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-15T17:44:29+00:00",
+ "generated_at": "2026-10-16T05:18:58+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -11,8 +11,8 @@
    "adults": 2,
    "target": 2200,
    "deadline": "2027-03-01",
-   "days_left": 137,
-   "n": 107,
+   "days_left": 136,
+   "n": 108,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -441,25 +441,29 @@
     {
      "t": "2026-10-15T05:28:17+00:00",
      "p": 2444.0
+    },
+    {
+     "t": "2026-10-16T05:18:58+00:00",
+     "p": 2625.0
     }
    ],
    "verdict": "BUY",
    "reasons": [
     "Only 2 viable itineraries left"
    ],
-   "current": 2444.0,
-   "per_person": 1222.0,
+   "current": 2625.0,
+   "per_person": 1312.5,
    "low": 1927.0,
-   "high": 2444.0,
+   "high": 2625.0,
    "median": 2332.0,
-   "percentile": 93.45794392523365,
-   "vs_low_pct": 26.82926829268293,
-   "days_tracked": 52,
-   "bucket_gap": 0.0,
+   "percentile": 99.07407407407408,
+   "vs_low_pct": 36.22210690192008,
+   "days_tracked": 53,
+   "bucket_gap": 7.405891980360066,
    "bucket_thin": false,
    "n_options": 2,
    "airline": "American",
-   "observed_at": "2026-10-15T05:28:17+00:00",
+   "observed_at": "2026-10-16T05:18:58+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -503,10 +507,10 @@
    },
    "itinerary_line": "American \u00b7 1 stop MIA \u00b7 05:00 \u2192 13:58 \u00b7 7h 58m",
    "source": "google-flights",
-   "cheapest_any": 1816.0,
+   "cheapest_any": 2006.0,
    "board": [
     {
-     "price": 1816.0,
+     "price": 2006.0,
      "stops": 2,
      "via": [
       "Dallas Fort Worth",
@@ -536,7 +540,7 @@
      "tracked": false
     },
     {
-     "price": 1816.0,
+     "price": 2006.0,
      "stops": 2,
      "via": [
       "CLT",
@@ -566,7 +570,7 @@
      "tracked": false
     },
     {
-     "price": 1934.0,
+     "price": 2124.0,
      "stops": 2,
      "via": [
       "Dallas Fort Worth",
@@ -596,7 +600,7 @@
      "tracked": false
     },
     {
-     "price": 1934.0,
+     "price": 2124.0,
      "stops": 2,
      "via": [
       "ORD",
@@ -626,7 +630,7 @@
      "tracked": false
     },
     {
-     "price": 1959.0,
+     "price": 2140.0,
      "stops": 1,
      "via": [
       "CLT"
@@ -704,7 +708,7 @@
      "tracked": false
     },
     {
-     "price": 2444.0,
+     "price": 2625.0,
      "stops": 1,
      "via": [
       "MIA"
@@ -752,9 +756,8 @@
      "tracked": false
     }
    ],
-   "change_7d": 4.757822546078011,
-   "change_30d": 4.802744425385934
+   "change_7d": 18.939737199818758,
+   "change_30d": 12.564322469982848
   }
- ],
- "warning": "No fares returned for: St Lucia"
+ ]
 }
