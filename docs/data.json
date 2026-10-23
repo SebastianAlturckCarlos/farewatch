@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-23T05:35:52+00:00",
+ "generated_at": "2026-10-23T17:53:29+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -12,7 +12,7 @@
    "target": 2200,
    "deadline": "2027-03-01",
    "days_left": 129,
-   "n": 118,
+   "n": 119,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -485,6 +485,10 @@
     {
      "t": "2026-10-23T05:35:52+00:00",
      "p": 2444.0
+    },
+    {
+     "t": "2026-10-23T17:53:29+00:00",
+     "p": 2444.0
     }
    ],
    "verdict": "BUY",
@@ -496,14 +500,14 @@
    "low": 1927.0,
    "high": 2625.0,
    "median": 2332.0,
-   "percentile": 84.7457627118644,
+   "percentile": 84.03361344537815,
    "vs_low_pct": 26.82926829268293,
    "days_tracked": 60,
-   "bucket_gap": 0.0,
+   "bucket_gap": null,
    "bucket_thin": false,
    "n_options": 2,
    "airline": "American",
-   "observed_at": "2026-10-23T05:35:52+00:00",
+   "observed_at": "2026-10-23T17:53:29+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -670,7 +674,7 @@
      "tracked": false
     },
     {
-     "price": 2140.0,
+     "price": 1959.0,
      "stops": 1,
      "via": [
       "CLT"
@@ -772,7 +776,7 @@
      "tracked": true
     },
     {
-     "price": 2645.0,
+     "price": 2997.0,
      "stops": 1,
      "via": [
       "ATL"
@@ -793,36 +797,6 @@
      "why": null,
      "longest_layover": 52,
      "tight": true,
-     "tracked": false
-    },
-    {
-     "price": 6264.0,
-     "stops": 2,
-     "via": [
-      "Dallas Fort Worth",
-      "MIA"
-     ],
-     "layovers": [
-      {
-       "at": "Dallas Fort Worth",
-       "minutes": 442,
-       "label": "7h 22m"
-      },
-      {
-       "at": "MIA",
-       "minutes": 147,
-       "label": "2h 27m"
-      }
-     ],
-     "depart_at": "2027-06-14T19:46",
-     "arrive_at": "2027-06-15T15:04",
-     "total_label": "18h 18m",
-     "total_minutes": 1098,
-     "airline": "American",
-     "fits": false,
-     "why": "2 stops, lands next day, 7h layover",
-     "longest_layover": 442,
-     "tight": false,
      "tracked": false
     }
    ],
