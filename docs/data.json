@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-25T17:03:31+00:00",
+ "generated_at": "2026-10-26T05:41:32+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -11,8 +11,8 @@
    "adults": 2,
    "target": 2200,
    "deadline": "2027-03-01",
-   "days_left": 127,
-   "n": 122,
+   "days_left": 126,
+   "n": 123,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -501,25 +501,29 @@
     {
      "t": "2026-10-25T17:03:31+00:00",
      "p": 2625.0
+    },
+    {
+     "t": "2026-10-26T05:41:32+00:00",
+     "p": 2634.0
     }
    ],
    "verdict": "BUY",
    "reasons": [
     "Only 2 viable itineraries left"
    ],
-   "current": 2625.0,
-   "per_person": 1312.5,
+   "current": 2634.0,
+   "per_person": 1317.0,
    "low": 1927.0,
-   "high": 2625.0,
+   "high": 2634.0,
    "median": 2332.0,
-   "percentile": 94.26229508196721,
-   "vs_low_pct": 36.22210690192008,
-   "days_tracked": 62,
+   "percentile": 99.1869918699187,
+   "vs_low_pct": 36.68915412558381,
+   "days_tracked": 63,
    "bucket_gap": null,
    "bucket_thin": false,
    "n_options": 2,
    "airline": "American",
-   "observed_at": "2026-10-25T17:03:31+00:00",
+   "observed_at": "2026-10-26T05:41:32+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -656,7 +660,31 @@
      "tracked": false
     },
     {
-     "price": 2124.0,
+     "price": 2149.0,
+     "stops": 1,
+     "via": [
+      "CLT"
+     ],
+     "layovers": [
+      {
+       "at": "CLT",
+       "minutes": 755,
+       "label": "12h 35m"
+      }
+     ],
+     "depart_at": "2027-06-14T17:20",
+     "arrive_at": "2027-06-15T14:10",
+     "total_label": "19h 50m",
+     "total_minutes": 1190,
+     "airline": "American",
+     "fits": false,
+     "why": "lands next day, 12h layover",
+     "longest_layover": 755,
+     "tight": false,
+     "tracked": false
+    },
+    {
+     "price": 2356.0,
      "stops": 2,
      "via": [
       "ORD",
@@ -686,60 +714,6 @@
      "tracked": false
     },
     {
-     "price": 2140.0,
-     "stops": 1,
-     "via": [
-      "CLT"
-     ],
-     "layovers": [
-      {
-       "at": "CLT",
-       "minutes": 755,
-       "label": "12h 35m"
-      }
-     ],
-     "depart_at": "2027-06-14T17:20",
-     "arrive_at": "2027-06-15T14:10",
-     "total_label": "19h 50m",
-     "total_minutes": 1190,
-     "airline": "American",
-     "fits": false,
-     "why": "lands next day, 12h layover",
-     "longest_layover": 755,
-     "tight": false,
-     "tracked": false
-    },
-    {
-     "price": 2244.0,
-     "stops": 2,
-     "via": [
-      "ORD",
-      "MIA"
-     ],
-     "layovers": [
-      {
-       "at": "ORD",
-       "minutes": 435,
-       "label": "7h 15m"
-      },
-      {
-       "at": "MIA",
-       "minutes": 57,
-       "label": "57m"
-      }
-     ],
-     "depart_at": "2027-06-14T19:52",
-     "arrive_at": "2027-06-15T13:58",
-     "total_label": "17h 06m",
-     "total_minutes": 1026,
-     "airline": "American",
-     "fits": false,
-     "why": "2 stops, lands next day, 7h layover",
-     "longest_layover": 435,
-     "tight": true,
-     "tracked": false
-    },
-    {
      "price": 2411.0,
      "stops": 1,
      "via": [
@@ -764,7 +738,7 @@
      "tracked": false
     },
     {
-     "price": 2625.0,
+     "price": 2634.0,
      "stops": 1,
      "via": [
       "MIA"
@@ -810,10 +784,40 @@
      "longest_layover": 52,
      "tight": true,
      "tracked": false
+    },
+    {
+     "price": 6264.0,
+     "stops": 2,
+     "via": [
+      "ORD",
+      "MIA"
+     ],
+     "layovers": [
+      {
+       "at": "ORD",
+       "minutes": 435,
+       "label": "7h 15m"
+      },
+      {
+       "at": "MIA",
+       "minutes": 127,
+       "label": "2h 07m"
+      }
+     ],
+     "depart_at": "2027-06-14T19:52",
+     "arrive_at": "2027-06-15T15:04",
+     "total_label": "18h 12m",
+     "total_minutes": 1092,
+     "airline": "American",
+     "fits": false,
+     "why": "2 stops, lands next day, 7h layover",
+     "longest_layover": 435,
+     "tight": false,
+     "tracked": false
     }
    ],
-   "change_7d": 7.405891980360066,
-   "change_30d": 12.564322469982848
+   "change_7d": 0.34285714285714286,
+   "change_30d": 12.950257289879932
   }
  ]
 }
