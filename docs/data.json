@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-27T18:47:40+00:00",
+ "generated_at": "2026-10-28T06:28:53+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -11,8 +11,8 @@
    "adults": 2,
    "target": 2200,
    "deadline": "2027-03-01",
-   "days_left": 125,
-   "n": 124,
+   "days_left": 124,
+   "n": 125,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -509,6 +509,10 @@
     {
      "t": "2026-10-27T05:50:18+00:00",
      "p": 2634.0
+    },
+    {
+     "t": "2026-10-28T06:28:53+00:00",
+     "p": 2634.0
     }
    ],
    "verdict": "BUY",
@@ -520,14 +524,14 @@
    "low": 1927.0,
    "high": 2634.0,
    "median": 2332.0,
-   "percentile": 98.38709677419355,
+   "percentile": 97.6,
    "vs_low_pct": 36.68915412558381,
-   "days_tracked": 64,
+   "days_tracked": 65,
    "bucket_gap": 7.774140752864158,
    "bucket_thin": false,
    "n_options": 2,
    "airline": "American",
-   "observed_at": "2026-10-27T05:50:18+00:00",
+   "observed_at": "2026-10-28T06:28:53+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -790,39 +794,38 @@
      "tracked": false
     },
     {
-     "price": 6264.0,
+     "price": 6284.0,
      "stops": 2,
      "via": [
-      "ORD",
-      "MIA"
+      "Dallas Fort Worth",
+      "CLT"
      ],
      "layovers": [
       {
-       "at": "ORD",
-       "minutes": 435,
-       "label": "7h 15m"
+       "at": "Dallas Fort Worth",
+       "minutes": 442,
+       "label": "7h 22m"
       },
       {
-       "at": "MIA",
-       "minutes": 127,
-       "label": "2h 07m"
+       "at": "CLT",
+       "minutes": 50,
+       "label": "50m"
       }
      ],
-     "depart_at": "2027-06-14T19:52",
-     "arrive_at": "2027-06-15T15:04",
-     "total_label": "18h 12m",
-     "total_minutes": 1092,
+     "depart_at": "2027-06-14T19:46",
+     "arrive_at": "2027-06-15T14:10",
+     "total_label": "17h 24m",
+     "total_minutes": 1044,
      "airline": "American",
      "fits": false,
      "why": "2 stops, lands next day, 7h layover",
-     "longest_layover": 435,
-     "tight": false,
+     "longest_layover": 442,
+     "tight": true,
      "tracked": false
     }
    ],
-   "change_7d": 0.34285714285714286,
+   "change_7d": 7.774140752864158,
    "change_30d": 12.950257289879932
   }
- ],
- "warning": "No fares returned for: St Lucia"
+ ]
 }
