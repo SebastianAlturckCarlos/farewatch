@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-06T19:57:07+00:00",
+ "generated_at": "2026-11-07T06:44:06+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -11,8 +11,8 @@
    "adults": 2,
    "target": 2200,
    "deadline": "2027-03-01",
-   "days_left": 115,
-   "n": 143,
+   "days_left": 114,
+   "n": 144,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -585,6 +585,10 @@
     {
      "t": "2026-11-06T07:32:20+00:00",
      "p": 2484.0
+    },
+    {
+     "t": "2026-11-07T06:44:06+00:00",
+     "p": 2484.0
     }
    ],
    "verdict": "BUY",
@@ -596,14 +600,14 @@
    "low": 1927.0,
    "high": 2634.0,
    "median": 2332.0,
-   "percentile": 83.91608391608392,
+   "percentile": 83.33333333333333,
    "vs_low_pct": 28.90503373118837,
-   "days_tracked": 74,
+   "days_tracked": 75,
    "bucket_gap": 0.0,
    "bucket_thin": false,
    "n_options": 2,
    "airline": "American",
-   "observed_at": "2026-11-06T07:32:20+00:00",
+   "observed_at": "2026-11-07T06:44:06+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -764,7 +768,7 @@
      "tracked": false
     },
     {
-     "price": 2259.0,
+     "price": 2203.0,
      "stops": 1,
      "via": [
       "ATL"
@@ -869,6 +873,5 @@
    "change_7d": -5.371428571428572,
    "change_30d": 6.472353193313331
   }
- ],
- "warning": "No fares returned for: St Lucia"
+ ]
 }
