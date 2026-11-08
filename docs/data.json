@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-07T17:58:25+00:00",
+ "generated_at": "2026-11-08T06:52:17+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -11,8 +11,8 @@
    "adults": 2,
    "target": 2200,
    "deadline": "2027-03-01",
-   "days_left": 114,
-   "n": 145,
+   "days_left": 113,
+   "n": 146,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -593,67 +593,71 @@
     {
      "t": "2026-11-07T17:58:25+00:00",
      "p": 2484.0
+    },
+    {
+     "t": "2026-11-08T06:52:17+00:00",
+     "p": 2217.0
     }
    ],
    "verdict": "BUY",
    "reasons": [
     "Only 2 viable itineraries left"
    ],
-   "current": 2484.0,
-   "per_person": 1242.0,
+   "current": 2217.0,
+   "per_person": 1108.5,
    "low": 1927.0,
    "high": 2634.0,
    "median": 2332.0,
-   "percentile": 82.75862068965517,
-   "vs_low_pct": 28.90503373118837,
-   "days_tracked": 75,
-   "bucket_gap": 0.0,
+   "percentile": 30.136986301369863,
+   "vs_low_pct": 15.049299429164503,
+   "days_tracked": 76,
+   "bucket_gap": -0.045085662759242556,
    "bucket_thin": false,
    "n_options": 2,
-   "airline": "American",
-   "observed_at": "2026-11-07T17:58:25+00:00",
+   "airline": "Delta",
+   "observed_at": "2026-11-08T06:52:17+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
-   "arrive_at": "2027-06-14T13:58",
+   "arrive_at": "2027-06-14T14:10",
    "daylight_ok": true,
-   "duration_min": 478,
+   "duration_min": 450,
    "itinerary": {
-    "airline": "American",
+    "airline": "Delta",
     "stops": 1,
-    "depart_at": "2027-06-14T05:00",
-    "arrive_at": "2027-06-14T13:58",
-    "total_minutes": 478,
-    "total_label": "7h 58m",
+    "depart_at": "2027-06-14T05:40",
+    "arrive_at": "2027-06-14T14:10",
+    "total_minutes": 450,
+    "total_label": "7h 30m",
     "segments": [
      {
       "from": "MCI",
-      "to": "MIA",
-      "dep": "2027-06-14T05:00",
+      "to": "ATL",
+      "dep": "2027-06-14T05:40",
       "arr": null,
       "minutes": null,
       "plane": null
      },
      {
-      "from": "MIA",
+      "from": "ATL",
       "to": "UVF",
       "dep": null,
-      "arr": "2027-06-14T13:58",
+      "arr": "2027-06-14T14:10",
       "minutes": null,
       "plane": null
      }
     ],
     "layovers": [
      {
-      "at": "MIA",
-      "minutes": 55,
-      "label": "55m"
+      "at": "ATL",
+      "minutes": 52,
+      "label": "52m"
      }
     ],
     "carbon": null,
     "source": "google-flights"
    },
-   "itinerary_line": "American \u00b7 1 stop MIA \u00b7 05:00 \u2192 13:58 \u00b7 7h 58m",
+   "itinerary_line": "Delta \u00b7 1 stop ATL \u00b7 05:40 \u2192 14:10 \u00b7 7h 30m",
    "source": "google-flights",
    "cheapest_any": 1856.0,
    "board": [
@@ -772,7 +776,7 @@
      "tracked": false
     },
     {
-     "price": 2259.0,
+     "price": 2027.0,
      "stops": 1,
      "via": [
       "ATL"
@@ -794,6 +798,30 @@
      "longest_layover": 713,
      "tight": false,
      "tracked": false
+    },
+    {
+     "price": 2217.0,
+     "stops": 1,
+     "via": [
+      "ATL"
+     ],
+     "layovers": [
+      {
+       "at": "ATL",
+       "minutes": 52,
+       "label": "52m"
+      }
+     ],
+     "depart_at": "2027-06-14T05:40",
+     "arrive_at": "2027-06-14T14:10",
+     "total_label": "7h 30m",
+     "total_minutes": 450,
+     "airline": "Delta",
+     "fits": true,
+     "why": null,
+     "longest_layover": 52,
+     "tight": true,
+     "tracked": true
     },
     {
      "price": 2300.0,
@@ -841,35 +869,41 @@
      "why": null,
      "longest_layover": 55,
      "tight": true,
-     "tracked": true
+     "tracked": false
     },
     {
-     "price": 2685.0,
-     "stops": 1,
+     "price": 6304.0,
+     "stops": 2,
      "via": [
-      "ATL"
+      "ORD",
+      "MIA"
      ],
      "layovers": [
       {
-       "at": "ATL",
-       "minutes": 52,
-       "label": "52m"
+       "at": "ORD",
+       "minutes": 435,
+       "label": "7h 15m"
+      },
+      {
+       "at": "MIA",
+       "minutes": 127,
+       "label": "2h 07m"
       }
      ],
-     "depart_at": "2027-06-14T05:40",
-     "arrive_at": "2027-06-14T14:10",
-     "total_label": "7h 30m",
-     "total_minutes": 450,
-     "airline": "Delta",
-     "fits": true,
-     "why": null,
-     "longest_layover": 52,
-     "tight": true,
+     "depart_at": "2027-06-14T19:52",
+     "arrive_at": "2027-06-15T15:04",
+     "total_label": "18h 12m",
+     "total_minutes": 1092,
+     "airline": "American",
+     "fits": false,
+     "why": "2 stops, lands next day, 7h layover",
+     "longest_layover": 435,
+     "tight": false,
      "tracked": false
     }
    ],
-   "change_7d": 1.6366612111292964,
-   "change_30d": 6.472353193313331
+   "change_7d": -9.288052373158756,
+   "change_30d": 0.4531037607612143
   }
  ]
 }
