@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-10T20:23:56+00:00",
+ "generated_at": "2026-11-11T07:23:36+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -11,8 +11,8 @@
    "adults": 2,
    "target": 2200,
    "deadline": "2027-03-01",
-   "days_left": 111,
-   "n": 151,
+   "days_left": 110,
+   "n": 152,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -617,6 +617,10 @@
     {
      "t": "2026-11-10T20:23:56+00:00",
      "p": 2484.0
+    },
+    {
+     "t": "2026-11-11T07:23:36+00:00",
+     "p": 2484.0
     }
    ],
    "verdict": "BUY",
@@ -628,14 +632,14 @@
    "low": 1927.0,
    "high": 2634.0,
    "median": 2332.0,
-   "percentile": 80.79470198675497,
+   "percentile": 80.26315789473684,
    "vs_low_pct": 28.90503373118837,
-   "days_tracked": 78,
+   "days_tracked": 79,
    "bucket_gap": 0.0,
    "bucket_thin": false,
    "n_options": 2,
    "airline": "American",
-   "observed_at": "2026-11-10T20:23:56+00:00",
+   "observed_at": "2026-11-11T07:23:36+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -796,7 +800,7 @@
      "tracked": false
     },
     {
-     "price": 2067.0,
+     "price": 2217.0,
      "stops": 1,
      "via": [
       "ATL"
@@ -874,7 +878,7 @@
      "tracked": true
     },
     {
-     "price": 2845.0,
+     "price": 2865.0,
      "stops": 1,
      "via": [
       "ATL"
