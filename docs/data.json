@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-11T07:23:36+00:00",
+ "generated_at": "2026-11-11T20:04:25+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -12,7 +12,7 @@
    "target": 2200,
    "deadline": "2027-03-01",
    "days_left": 110,
-   "n": 152,
+   "n": 153,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -621,6 +621,10 @@
     {
      "t": "2026-11-11T07:23:36+00:00",
      "p": 2484.0
+    },
+    {
+     "t": "2026-11-11T20:04:25+00:00",
+     "p": 2484.0
     }
    ],
    "verdict": "BUY",
@@ -632,14 +636,14 @@
    "low": 1927.0,
    "high": 2634.0,
    "median": 2332.0,
-   "percentile": 80.26315789473684,
+   "percentile": 79.73856209150327,
    "vs_low_pct": 28.90503373118837,
    "days_tracked": 79,
    "bucket_gap": 0.0,
    "bucket_thin": false,
    "n_options": 2,
    "airline": "American",
-   "observed_at": "2026-11-11T07:23:36+00:00",
+   "observed_at": "2026-11-11T20:04:25+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -776,6 +780,36 @@
      "tracked": false
     },
     {
+     "price": 1974.0,
+     "stops": 2,
+     "via": [
+      "Dallas Fort Worth",
+      "MIA"
+     ],
+     "layovers": [
+      {
+       "at": "Dallas Fort Worth",
+       "minutes": 442,
+       "label": "7h 22m"
+      },
+      {
+       "at": "MIA",
+       "minutes": 77,
+       "label": "1h 17m"
+      }
+     ],
+     "depart_at": "2027-06-14T19:46",
+     "arrive_at": "2027-06-15T13:58",
+     "total_label": "17h 12m",
+     "total_minutes": 1032,
+     "airline": "American",
+     "fits": false,
+     "why": "2 stops, lands next day, 7h layover",
+     "longest_layover": 442,
+     "tight": false,
+     "tracked": false
+    },
+    {
      "price": 2000.0,
      "stops": 1,
      "via": [
@@ -800,7 +834,7 @@
      "tracked": false
     },
     {
-     "price": 2217.0,
+     "price": 2087.0,
      "stops": 1,
      "via": [
       "ATL"
