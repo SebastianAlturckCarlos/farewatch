@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-14T18:44:06+00:00",
+ "generated_at": "2026-11-15T07:27:01+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -11,7 +11,7 @@
    "adults": 2,
    "target": 2200,
    "deadline": "2027-03-01",
-   "days_left": 107,
+   "days_left": 106,
    "n": 159,
    "series": [
     {
@@ -662,7 +662,7 @@
    "median": 2332.0,
    "percentile": 77.9874213836478,
    "vs_low_pct": 28.90503373118837,
-   "days_tracked": 82,
+   "days_tracked": 83,
    "bucket_gap": 0.0,
    "bucket_thin": false,
    "n_options": 2,
@@ -954,8 +954,9 @@
      "tracked": false
     }
    ],
-   "change_7d": 0.0,
-   "change_30d": 1.6366612111292964
+   "change_7d": 12.043301759133964,
+   "change_30d": -5.371428571428572
   }
- ]
+ ],
+ "warning": "No fares returned for: St Lucia"
 }
