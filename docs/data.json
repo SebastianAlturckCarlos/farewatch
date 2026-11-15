@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-15T07:27:01+00:00",
+ "generated_at": "2026-11-15T19:19:40+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -12,7 +12,7 @@
    "target": 2200,
    "deadline": "2027-03-01",
    "days_left": 106,
-   "n": 159,
+   "n": 160,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -649,6 +649,10 @@
     {
      "t": "2026-11-14T18:44:06+00:00",
      "p": 2484.0
+    },
+    {
+     "t": "2026-11-15T19:19:40+00:00",
+     "p": 2484.0
     }
    ],
    "verdict": "BUY",
@@ -660,14 +664,14 @@
    "low": 1927.0,
    "high": 2634.0,
    "median": 2332.0,
-   "percentile": 77.9874213836478,
+   "percentile": 77.5,
    "vs_low_pct": 28.90503373118837,
    "days_tracked": 83,
    "bucket_gap": 0.0,
    "bucket_thin": false,
    "n_options": 2,
    "airline": "American",
-   "observed_at": "2026-11-14T18:44:06+00:00",
+   "observed_at": "2026-11-15T19:19:40+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -804,6 +808,30 @@
      "tracked": false
     },
     {
+     "price": 1897.0,
+     "stops": 1,
+     "via": [
+      "ATL"
+     ],
+     "layovers": [
+      {
+       "at": "ATL",
+       "minutes": 713,
+       "label": "11h 53m"
+      }
+     ],
+     "depart_at": "2027-06-14T18:42",
+     "arrive_at": "2027-06-15T14:10",
+     "total_label": "18h 28m",
+     "total_minutes": 1108,
+     "airline": "Delta",
+     "fits": false,
+     "why": "lands next day, 11h layover",
+     "longest_layover": 713,
+     "tight": false,
+     "tracked": false
+    },
+    {
      "price": 2000.0,
      "stops": 1,
      "via": [
@@ -824,30 +852,6 @@
      "fits": false,
      "why": "lands next day, 12h layover",
      "longest_layover": 755,
-     "tight": false,
-     "tracked": false
-    },
-    {
-     "price": 2027.0,
-     "stops": 1,
-     "via": [
-      "ATL"
-     ],
-     "layovers": [
-      {
-       "at": "ATL",
-       "minutes": 713,
-       "label": "11h 53m"
-      }
-     ],
-     "depart_at": "2027-06-14T18:42",
-     "arrive_at": "2027-06-15T14:10",
-     "total_label": "18h 28m",
-     "total_minutes": 1108,
-     "airline": "Delta",
-     "fits": false,
-     "why": "lands next day, 11h layover",
-     "longest_layover": 713,
      "tight": false,
      "tracked": false
     },
@@ -957,6 +961,5 @@
    "change_7d": 12.043301759133964,
    "change_30d": -5.371428571428572
   }
- ],
- "warning": "No fares returned for: St Lucia"
+ ]
 }
