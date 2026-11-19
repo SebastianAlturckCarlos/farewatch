@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-18T21:15:06+00:00",
+ "generated_at": "2026-11-19T08:15:58+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -11,7 +11,7 @@
    "adults": 2,
    "target": 2200,
    "deadline": "2027-03-01",
-   "days_left": 103,
+   "days_left": 102,
    "n": 162,
    "series": [
     {
@@ -674,7 +674,7 @@
    "median": 2332.0,
    "percentile": 27.160493827160494,
    "vs_low_pct": 15.049299429164503,
-   "days_tracked": 86,
+   "days_tracked": 87,
    "bucket_gap": -0.045085662759242556,
    "bucket_thin": false,
    "n_options": 2,
