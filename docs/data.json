@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-19T08:15:58+00:00",
+ "generated_at": "2026-11-19T21:17:29+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -12,7 +12,7 @@
    "target": 2200,
    "deadline": "2027-03-01",
    "days_left": 102,
-   "n": 162,
+   "n": 163,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -661,25 +661,29 @@
     {
      "t": "2026-11-17T08:43:51+00:00",
      "p": 2217.0
+    },
+    {
+     "t": "2026-11-19T21:17:29+00:00",
+     "p": 2387.0
     }
    ],
    "verdict": "BUY",
    "reasons": [
     "Only 2 viable itineraries left"
    ],
-   "current": 2217.0,
-   "per_person": 1108.5,
+   "current": 2387.0,
+   "per_person": 1193.5,
    "low": 1927.0,
    "high": 2634.0,
    "median": 2332.0,
-   "percentile": 27.160493827160494,
-   "vs_low_pct": 15.049299429164503,
+   "percentile": 63.80368098159509,
+   "vs_low_pct": 23.87130254281266,
    "days_tracked": 87,
-   "bucket_gap": -0.045085662759242556,
+   "bucket_gap": -0.04187604690117253,
    "bucket_thin": false,
    "n_options": 2,
    "airline": "Delta",
-   "observed_at": "2026-11-17T08:43:51+00:00",
+   "observed_at": "2026-11-19T21:17:29+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -723,10 +727,10 @@
    },
    "itinerary_line": "Delta \u00b7 1 stop ATL \u00b7 05:40 \u2192 14:10 \u00b7 7h 30m",
    "source": "google-flights",
-   "cheapest_any": 1856.0,
+   "cheapest_any": 1956.0,
    "board": [
     {
-     "price": 1856.0,
+     "price": 1956.0,
      "stops": 2,
      "via": [
       "ORD",
@@ -756,7 +760,7 @@
      "tracked": false
     },
     {
-     "price": 1856.0,
+     "price": 1956.0,
      "stops": 2,
      "via": [
       "CLT",
@@ -786,7 +790,7 @@
      "tracked": false
     },
     {
-     "price": 1896.0,
+     "price": 1996.0,
      "stops": 2,
      "via": [
       "Dallas Fort Worth",
@@ -816,7 +820,7 @@
      "tracked": false
     },
     {
-     "price": 2000.0,
+     "price": 2101.0,
      "stops": 1,
      "via": [
       "CLT"
@@ -840,7 +844,7 @@
      "tracked": false
     },
     {
-     "price": 2027.0,
+     "price": 2197.0,
      "stops": 1,
      "via": [
       "ATL"
@@ -864,7 +868,7 @@
      "tracked": false
     },
     {
-     "price": 2217.0,
+     "price": 2387.0,
      "stops": 1,
      "via": [
       "ATL"
@@ -888,7 +892,7 @@
      "tracked": true
     },
     {
-     "price": 2300.0,
+     "price": 2397.0,
      "stops": 1,
      "via": [
       "MIA"
@@ -912,7 +916,7 @@
      "tracked": false
     },
     {
-     "price": 2484.0,
+     "price": 2550.0,
      "stops": 1,
      "via": [
       "MIA"
@@ -936,7 +940,7 @@
      "tracked": false
     },
     {
-     "price": 6324.0,
+     "price": 6722.0,
      "stops": 2,
      "via": [
       "ORD",
@@ -966,9 +970,8 @@
      "tracked": false
     }
    ],
-   "change_7d": -10.748792270531402,
-   "change_30d": -15.542857142857141
+   "change_7d": 6.705409029950828,
+   "change_30d": -9.066666666666666
   }
- ],
- "warning": "No fares returned for: St Lucia"
+ ]
 }
