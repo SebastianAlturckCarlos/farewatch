@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-21T07:56:09+00:00",
+ "generated_at": "2026-11-21T20:02:40+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -957,5 +957,6 @@
    "change_7d": -3.9049919484702094,
    "change_30d": -2.3322422258592472
   }
- ]
+ ],
+ "warning": "No fares returned for: St Lucia"
 }
