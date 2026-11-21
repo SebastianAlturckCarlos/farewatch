@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-20T21:04:53+00:00",
+ "generated_at": "2026-11-21T07:56:09+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -11,8 +11,8 @@
    "adults": 2,
    "target": 2200,
    "deadline": "2027-03-01",
-   "days_left": 101,
-   "n": 164,
+   "days_left": 100,
+   "n": 165,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -669,25 +669,29 @@
     {
      "t": "2026-11-20T07:57:11+00:00",
      "p": 2217.0
+    },
+    {
+     "t": "2026-11-21T07:56:09+00:00",
+     "p": 2387.0
     }
    ],
    "verdict": "BUY",
    "reasons": [
     "Only 2 viable itineraries left"
    ],
-   "current": 2217.0,
-   "per_person": 1108.5,
+   "current": 2387.0,
+   "per_person": 1193.5,
    "low": 1927.0,
    "high": 2634.0,
    "median": 2332.0,
-   "percentile": 26.829268292682926,
-   "vs_low_pct": 15.049299429164503,
-   "days_tracked": 88,
-   "bucket_gap": -0.045085662759242556,
+   "percentile": 63.63636363636363,
+   "vs_low_pct": 23.87130254281266,
+   "days_tracked": 89,
+   "bucket_gap": -0.04187604690117253,
    "bucket_thin": false,
    "n_options": 2,
    "airline": "Delta",
-   "observed_at": "2026-11-20T07:57:11+00:00",
+   "observed_at": "2026-11-21T07:56:09+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -824,7 +828,7 @@
      "tracked": false
     },
     {
-     "price": 2027.0,
+     "price": 2067.0,
      "stops": 1,
      "via": [
       "ATL"
@@ -872,30 +876,6 @@
      "tracked": false
     },
     {
-     "price": 2217.0,
-     "stops": 1,
-     "via": [
-      "ATL"
-     ],
-     "layovers": [
-      {
-       "at": "ATL",
-       "minutes": 52,
-       "label": "52m"
-      }
-     ],
-     "depart_at": "2027-06-14T05:40",
-     "arrive_at": "2027-06-14T14:10",
-     "total_label": "7h 30m",
-     "total_minutes": 450,
-     "airline": "Delta",
-     "fits": true,
-     "why": null,
-     "longest_layover": 52,
-     "tight": true,
-     "tracked": true
-    },
-    {
      "price": 2364.0,
      "stops": 2,
      "via": [
@@ -926,6 +906,30 @@
      "tracked": false
     },
     {
+     "price": 2387.0,
+     "stops": 1,
+     "via": [
+      "ATL"
+     ],
+     "layovers": [
+      {
+       "at": "ATL",
+       "minutes": 52,
+       "label": "52m"
+      }
+     ],
+     "depart_at": "2027-06-14T05:40",
+     "arrive_at": "2027-06-14T14:10",
+     "total_label": "7h 30m",
+     "total_minutes": 450,
+     "airline": "Delta",
+     "fits": true,
+     "why": null,
+     "longest_layover": 52,
+     "tight": true,
+     "tracked": true
+    },
+    {
      "price": 2550.0,
      "stops": 1,
      "via": [
@@ -950,9 +954,8 @@
      "tracked": false
     }
    ],
-   "change_7d": -10.748792270531402,
-   "change_30d": -9.288052373158756
+   "change_7d": -3.9049919484702094,
+   "change_30d": -2.3322422258592472
   }
- ],
- "warning": "No fares returned for: St Lucia"
+ ]
 }
