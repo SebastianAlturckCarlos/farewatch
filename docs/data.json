@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-24T22:58:33+00:00",
+ "generated_at": "2026-11-25T09:29:47+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -11,8 +11,8 @@
    "adults": 2,
    "target": 2200,
    "deadline": "2027-03-01",
-   "days_left": 97,
-   "n": 170,
+   "days_left": 96,
+   "n": 171,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -693,6 +693,10 @@
     {
      "t": "2026-11-24T22:58:33+00:00",
      "p": 2387.0
+    },
+    {
+     "t": "2026-11-25T09:29:47+00:00",
+     "p": 2387.0
     }
    ],
    "verdict": "BUY",
@@ -704,14 +708,14 @@
    "low": 1927.0,
    "high": 2634.0,
    "median": 2332.0,
-   "percentile": 61.76470588235294,
+   "percentile": 61.40350877192982,
    "vs_low_pct": 23.87130254281266,
-   "days_tracked": 92,
-   "bucket_gap": -0.04187604690117253,
+   "days_tracked": 93,
+   "bucket_gap": null,
    "bucket_thin": false,
    "n_options": 2,
    "airline": "Delta",
-   "observed_at": "2026-11-24T22:58:33+00:00",
+   "observed_at": "2026-11-25T09:29:47+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -969,7 +973,7 @@
     }
    ],
    "change_7d": 7.668019846639602,
-   "change_30d": -9.066666666666666
+   "change_30d": -9.377372817008352
   }
  ]
 }
