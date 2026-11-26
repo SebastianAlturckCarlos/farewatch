@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-25T22:13:45+00:00",
+ "generated_at": "2026-11-26T09:03:56+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -11,8 +11,8 @@
    "adults": 2,
    "target": 2200,
    "deadline": "2027-03-01",
-   "days_left": 96,
-   "n": 172,
+   "days_left": 95,
+   "n": 173,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -701,25 +701,29 @@
     {
      "t": "2026-11-25T22:13:45+00:00",
      "p": 2387.0
+    },
+    {
+     "t": "2026-11-26T09:03:56+00:00",
+     "p": 2217.0
     }
    ],
    "verdict": "BUY",
    "reasons": [
     "Only 2 viable itineraries left"
    ],
-   "current": 2387.0,
-   "per_person": 1193.5,
+   "current": 2217.0,
+   "per_person": 1108.5,
    "low": 1927.0,
    "high": 2634.0,
    "median": 2332.0,
-   "percentile": 61.04651162790697,
-   "vs_low_pct": 23.87130254281266,
-   "days_tracked": 93,
-   "bucket_gap": -0.04187604690117253,
+   "percentile": 25.433526011560694,
+   "vs_low_pct": 15.049299429164503,
+   "days_tracked": 94,
+   "bucket_gap": -0.045085662759242556,
    "bucket_thin": false,
    "n_options": 2,
    "airline": "Delta",
-   "observed_at": "2026-11-25T22:13:45+00:00",
+   "observed_at": "2026-11-26T09:03:56+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -763,8 +767,32 @@
    },
    "itinerary_line": "Delta \u00b7 1 stop ATL \u00b7 05:40 \u2192 14:10 \u00b7 7h 30m",
    "source": "google-flights",
-   "cheapest_any": 1956.0,
+   "cheapest_any": 1897.0,
    "board": [
+    {
+     "price": 1897.0,
+     "stops": 1,
+     "via": [
+      "ATL"
+     ],
+     "layovers": [
+      {
+       "at": "ATL",
+       "minutes": 713,
+       "label": "11h 53m"
+      }
+     ],
+     "depart_at": "2027-06-14T18:42",
+     "arrive_at": "2027-06-15T14:10",
+     "total_label": "18h 28m",
+     "total_minutes": 1108,
+     "airline": "Delta",
+     "fits": false,
+     "why": "lands next day, 11h layover",
+     "longest_layover": 713,
+     "tight": false,
+     "tracked": false
+    },
     {
      "price": 1956.0,
      "stops": 2,
@@ -826,30 +854,6 @@
      "tracked": false
     },
     {
-     "price": 2067.0,
-     "stops": 1,
-     "via": [
-      "ATL"
-     ],
-     "layovers": [
-      {
-       "at": "ATL",
-       "minutes": 713,
-       "label": "11h 53m"
-      }
-     ],
-     "depart_at": "2027-06-14T18:42",
-     "arrive_at": "2027-06-15T14:10",
-     "total_label": "18h 28m",
-     "total_minutes": 1108,
-     "airline": "Delta",
-     "fits": false,
-     "why": "lands next day, 11h layover",
-     "longest_layover": 713,
-     "tight": false,
-     "tracked": false
-    },
-    {
      "price": 2101.0,
      "stops": 1,
      "via": [
@@ -872,6 +876,30 @@
      "longest_layover": 755,
      "tight": false,
      "tracked": false
+    },
+    {
+     "price": 2217.0,
+     "stops": 1,
+     "via": [
+      "ATL"
+     ],
+     "layovers": [
+      {
+       "at": "ATL",
+       "minutes": 52,
+       "label": "52m"
+      }
+     ],
+     "depart_at": "2027-06-14T05:40",
+     "arrive_at": "2027-06-14T14:10",
+     "total_label": "7h 30m",
+     "total_minutes": 450,
+     "airline": "Delta",
+     "fits": true,
+     "why": null,
+     "longest_layover": 52,
+     "tight": true,
+     "tracked": true
     },
     {
      "price": 2364.0,
@@ -902,30 +930,6 @@
      "longest_layover": 435,
      "tight": true,
      "tracked": false
-    },
-    {
-     "price": 2387.0,
-     "stops": 1,
-     "via": [
-      "ATL"
-     ],
-     "layovers": [
-      {
-       "at": "ATL",
-       "minutes": 52,
-       "label": "52m"
-      }
-     ],
-     "depart_at": "2027-06-14T05:40",
-     "arrive_at": "2027-06-14T14:10",
-     "total_label": "7h 30m",
-     "total_minutes": 450,
-     "airline": "Delta",
-     "fits": true,
-     "why": null,
-     "longest_layover": 52,
-     "tight": true,
-     "tracked": true
     },
     {
      "price": 2397.0,
@@ -976,8 +980,8 @@
      "tracked": false
     }
    ],
-   "change_7d": 7.668019846639602,
-   "change_30d": -9.377372817008352
+   "change_7d": 0.0,
+   "change_30d": -15.831435079726653
   }
  ]
 }
