@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-26T22:13:32+00:00",
+ "generated_at": "2026-11-27T09:26:02+00:00",
  "trips": [
   {
    "trip": "St Lucia",
@@ -11,8 +11,8 @@
    "adults": 2,
    "target": 2200,
    "deadline": "2027-03-01",
-   "days_left": 95,
-   "n": 174,
+   "days_left": 94,
+   "n": 175,
    "series": [
     {
      "t": "2026-08-24T18:02:10",
@@ -709,25 +709,29 @@
     {
      "t": "2026-11-26T22:13:32+00:00",
      "p": 2217.0
+    },
+    {
+     "t": "2026-11-27T09:26:02+00:00",
+     "p": 2387.0
     }
    ],
    "verdict": "BUY",
    "reasons": [
     "Only 2 viable itineraries left"
    ],
-   "current": 2217.0,
-   "per_person": 1108.5,
+   "current": 2387.0,
+   "per_person": 1193.5,
    "low": 1927.0,
    "high": 2634.0,
    "median": 2332.0,
-   "percentile": 25.28735632183908,
-   "vs_low_pct": 15.049299429164503,
-   "days_tracked": 94,
-   "bucket_gap": -0.045085662759242556,
+   "percentile": 61.142857142857146,
+   "vs_low_pct": 23.87130254281266,
+   "days_tracked": 95,
+   "bucket_gap": null,
    "bucket_thin": false,
    "n_options": 2,
    "airline": "Delta",
-   "observed_at": "2026-11-26T22:13:32+00:00",
+   "observed_at": "2026-11-27T09:26:02+00:00",
    "estimate": false,
    "gateway": null,
    "stops": 1,
@@ -771,10 +775,10 @@
    },
    "itinerary_line": "Delta \u00b7 1 stop ATL \u00b7 05:40 \u2192 14:10 \u00b7 7h 30m",
    "source": "google-flights",
-   "cheapest_any": 1897.0,
+   "cheapest_any": 2067.0,
    "board": [
     {
-     "price": 1897.0,
+     "price": 2067.0,
      "stops": 1,
      "via": [
       "ATL"
@@ -858,30 +862,6 @@
      "tracked": false
     },
     {
-     "price": 2217.0,
-     "stops": 1,
-     "via": [
-      "ATL"
-     ],
-     "layovers": [
-      {
-       "at": "ATL",
-       "minutes": 52,
-       "label": "52m"
-      }
-     ],
-     "depart_at": "2027-06-14T05:40",
-     "arrive_at": "2027-06-14T14:10",
-     "total_label": "7h 30m",
-     "total_minutes": 450,
-     "airline": "Delta",
-     "fits": true,
-     "why": null,
-     "longest_layover": 52,
-     "tight": true,
-     "tracked": true
-    },
-    {
      "price": 2262.0,
      "stops": 1,
      "via": [
@@ -936,6 +916,30 @@
      "tracked": false
     },
     {
+     "price": 2387.0,
+     "stops": 1,
+     "via": [
+      "ATL"
+     ],
+     "layovers": [
+      {
+       "at": "ATL",
+       "minutes": 52,
+       "label": "52m"
+      }
+     ],
+     "depart_at": "2027-06-14T05:40",
+     "arrive_at": "2027-06-14T14:10",
+     "total_label": "7h 30m",
+     "total_minutes": 450,
+     "airline": "Delta",
+     "fits": true,
+     "why": null,
+     "longest_layover": 52,
+     "tight": true,
+     "tracked": true
+    },
+    {
      "price": 2558.0,
      "stops": 1,
      "via": [
@@ -984,8 +988,8 @@
      "tracked": false
     }
    ],
-   "change_7d": -7.121910347716799,
-   "change_30d": -15.831435079726653
+   "change_7d": 7.668019846639602,
+   "change_30d": -9.377372817008352
   }
  ]
 }
